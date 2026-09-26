@@ -7,13 +7,29 @@ export default async function handler(req, res) {
     for (const [key, value] of Object.entries(req.headers))
       if (value !== undefined)
         headers.set(key, Array.isArray(value) ? value.join(",") : value);
+    const rejectBody = (status, message) => {
+      res.writeHead(status, {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+      });
+      return res.end(JSON.stringify({ message }));
+    };
+    if (Number(req.headers["content-length"]) > MAX_BYTES)
+      return rejectBody(413, "Votre message est trop volumineux.");
+    let parsedBody;
+    try {
+      parsedBody = req.body;
+    } catch {
+      return rejectBody(400, "Le formulaire est invalide.");
+    }
     let body;
     if (!["GET", "HEAD"].includes(req.method)) {
       body =
-        req.body !== undefined
-          ? typeof req.body === "string" || Buffer.isBuffer(req.body)
-            ? req.body
-            : JSON.stringify(req.body)
+        parsedBody !== undefined
+          ? typeof parsedBody === "string" || Buffer.isBuffer(parsedBody)
+            ? parsedBody
+            : JSON.stringify(parsedBody)
           : Readable.toWeb(req);
       if (typeof body === "string" || Buffer.isBuffer(body)) {
         if (Buffer.byteLength(body) > MAX_BYTES) {
