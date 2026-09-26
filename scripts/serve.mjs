@@ -1,9 +1,13 @@
 import http from "node:http";
 import { readFile } from "node:fs/promises";
 import { resolve, extname, sep } from "node:path";
+import contact from "../api/contact.js";
 
 const root = resolve("public");
 const port = Number(process.env.PORT || 4173);
+// Mode de développement uniquement, jamais utilisé par la fonction Vercel.
+process.env.CONTACT_LOCAL_MODE = "true";
+process.env.CONTACT_ALLOWED_ORIGINS = `http://127.0.0.1:${port},http://localhost:${port}`;
 const mime = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
@@ -18,6 +22,8 @@ const mime = {
 http
   .createServer(async (req, res) => {
     try {
+      if (new URL(req.url, "http://localhost").pathname === "/api/contact")
+        return await contact(req, res);
       if (!["GET", "HEAD"].includes(req.method)) {
         res.writeHead(405);
         return res.end();

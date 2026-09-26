@@ -1,4 +1,40 @@
 @charset "UTF-8";
+.contact-trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.contact-status {
+  padding: 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-top: 18px;
+  background: #edf6fc;
+  color: #132f4c;
+}
+.contact-status[data-state="success"] {
+  background: #e6f5ed;
+  color: #145d3f;
+}
+.contact-status[data-state="error"],
+.field-error {
+  color: #9d2634;
+}
+.contact-status[data-state="error"] {
+  background: #fff1f2;
+}
+.field-error {
+  font-size: 12px;
+  line-height: 1.5;
+}
+#contact-form .form-submit:not(:disabled) {
+  background: #1479b8;
+}
+#contact-form .form-submit:not(:disabled):hover {
+  background: #105f92;
+}
 :root {
   --navy: #132f4c;
   --blue: #1479b8;

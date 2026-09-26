@@ -143,11 +143,11 @@ try {
       "Autre",
     ],
   );
-  assert.ok(await page.locator("#contact-form button").isDisabled());
+  assert.ok(await page.locator("#contact-form button").isEnabled());
   assert.equal(requests.filter((r) => r.method !== "GET").length, 0);
   assert.equal(requests.filter((r) => !r.url.startsWith(base)).length, 0);
   check(
-    "Contact : sujets conformes, suggestion présélectionnée, envoi désactivé et aucune requête externe",
+    "Contact : sujets conformes, suggestion présélectionnée, formulaire activé sans envoi spontané ni requête externe",
   );
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(base);
@@ -159,8 +159,13 @@ try {
   await page.keyboard.press("Enter");
   assert.ok(page.url().endsWith("#contenu"));
   check("Lien d’évitement accessible au clavier");
-  await page.locator('.hero-copy a[href="/beta/"]').click();
-  await page.waitForURL("**/beta/");
+  const access = "https://morashawiri.com/acceder-a-boutiquepilot/";
+  assert.equal(await page.locator('a[href="' + access + '"]').count(), 5);
+  assert.equal(await page.locator('a[href^="/beta"]').count(), 0);
+  check(
+    "Les cinq CTA publics passent par la page WordPress, aucun lien direct vers la bêta",
+  );
+  await page.goto(base + "/beta/");
   assert.equal(await page.title(), "BoutiquePilot");
   assert.equal(await page.locator("#title").textContent(), "Tableau de bord");
   assert.equal(await page.locator("[data-v]").count(), 14);
@@ -176,7 +181,7 @@ try {
     "93007be8d597940ee10e6ec4be1dc25a25eec7f7b03978201c83fce111a464be",
   );
   check(
-    "CTA → /beta/ : application chargée, 14 modules, contenu servi identique à la référence",
+    "Route technique /beta/ : application chargée, 14 modules, contenu servi identique à la référence",
   );
   for (const route of [
     "/Informations%20des%20comptes.txt",

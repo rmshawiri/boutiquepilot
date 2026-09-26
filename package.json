@@ -5,11 +5,13 @@
   "type": "module",
   "description": "Site officiel de BoutiquePilot — MORA Shawiri",
   "scripts": {
-    "dev": "node scripts/serve.mjs",
+    "dev": "node --env-file-if-exists=.env.local scripts/serve.mjs",
     "build": "node scripts/check.mjs",
     "check": "node scripts/check.mjs",
     "test": "node tests/site.mjs",
-    "assets": "node scripts/assets.mjs"
+    "assets": "node scripts/assets.mjs",
+    "test:contact": "node --test tests/contact.test.mjs",
+    "test:contact:browser": "node tests/contact-browser.mjs"
   },
   "engines": {
     "node": ">=22"
@@ -18,5 +20,9 @@
     "axe-core": "^4.13.0",
     "playwright": "^1.63.0",
     "sharp": "^0.35.4"
+  },
+  "dependencies": {
+    "@vercel/firewall": "^1.2.5",
+    "nodemailer": "^10.0.10"
   }
 }

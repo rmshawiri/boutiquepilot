@@ -123,7 +123,9 @@
         <nav class="nav" id="main-nav" aria-label="Navigation principale">
           <a href="#accueil" aria-current="page">Accueil</a
           ><a href="#a-propos">À propos</a><a href="#contact">Contact</a>
-          <a class="button button-small header-cta" href="/beta/"
+          <a
+            class="button button-small header-cta"
+            href="https://morashawiri.com/acceder-a-boutiquepilot/"
             >Utiliser BoutiquePilot gratuitement
             <svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg
           ></a>
@@ -150,7 +152,9 @@
               télécom : BoutiquePilot rassemble l’essentiel de votre gestion
               dans un seul outil.
             </p>
-            <a class="button button-bright" href="/beta/"
+            <a
+              class="button button-bright"
+              href="https://morashawiri.com/acceder-a-boutiquepilot/"
               >Utiliser BoutiquePilot gratuitement
               <svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg
             ></a>
@@ -323,7 +327,9 @@
               conversions s’appliquent à un stock unique, sans multiplier les
               fiches produits.
             </p>
-            <a class="text-link" href="/beta/"
+            <a
+              class="text-link"
+              href="https://morashawiri.com/acceder-a-boutiquepilot/"
               >Découvrir dans BoutiquePilot
               <svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg
             ></a>
@@ -604,7 +610,9 @@
               Découvrez l’outil, utilisez-le dans votre boutique et contribuez à
               son évolution grâce à vos retours.
             </p>
-            <a class="button" href="/beta/"
+            <a
+              class="button"
+              href="https://morashawiri.com/acceder-a-boutiquepilot/"
               >Utiliser BoutiquePilot gratuitement
               <svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg
             ></a>
@@ -737,8 +745,7 @@
               Les champs marqués d’un * sont obligatoires.
             </p>
             <div class="form-availability" id="form-availability">
-              L’envoi par formulaire sera bientôt disponible. En attendant,
-              contactez-nous par
+              Vous préférez un échange direct ? Contactez-nous par
               <a href="mailto:boutiquepilot@morashawiri.com">e-mail</a> ou
               <a
                 href="https://wa.me/2694306306"
@@ -747,11 +754,24 @@
                 >WhatsApp<span class="sr-only"> (nouvel onglet)</span></a
               >.
             </div>
-            <form id="contact-form" aria-describedby="form-availability">
+            <form
+              id="contact-form"
+              action="/api/contact"
+              method="post"
+              aria-describedby="form-availability"
+            >
+              <div class="contact-trap" aria-hidden="true">
+                <label for="contact-website">Site web</label
+                ><input
+                  id="contact-website"
+                  name="website"
+                  type="text"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
+              </div>
               <fieldset disabled>
-                <legend class="sr-only">
-                  Formulaire de contact — bientôt disponible
-                </legend>
+                <legend class="sr-only">Formulaire de contact</legend>
                 <div class="form-grid">
                   <div class="field full">
                     <label for="contact-name"
@@ -823,9 +843,23 @@
                   </svg>
                 </button>
               </fieldset>
+              <p
+                id="contact-status"
+                class="contact-status"
+                role="status"
+                aria-live="polite"
+                tabindex="-1"
+                hidden
+              ></p>
+              <noscript
+                ><p>
+                  Activez JavaScript pour envoyer ce formulaire, ou utilisez les
+                  liens e-mail et WhatsApp ci-dessus.
+                </p></noscript
+              >
               <p class="form-note">
-                Aucune information saisie n’est transmise par ce formulaire pour
-                le moment.
+                Les informations de ce formulaire servent à traiter votre
+                demande de contact.
               </p>
             </form>
           </div>
@@ -846,7 +880,9 @@
             </p>
           </div>
           <div class="final-actions">
-            <a class="button button-bright" href="/beta/"
+            <a
+              class="button button-bright"
+              href="https://morashawiri.com/acceder-a-boutiquepilot/"
               >Utiliser BoutiquePilot gratuitement
               <svg class="icon" aria-hidden="true">
                 <use href="#i-arrow" /></svg></a

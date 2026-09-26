@@ -22,6 +22,19 @@ try {
   console.log("Build isolé : copie bêta conforme à l’empreinte approuvée.");
 }
 const html = await readFile("public/index.html", "utf8");
+assert.equal(
+  (
+    html.match(
+      /href="https:\/\/morashawiri\.com\/acceder-a-boutiquepilot\/"/g,
+    ) || []
+  ).length,
+  5,
+  "Les cinq CTA doivent passer par WordPress",
+);
+assert.ok(
+  !/href="\/beta(?:\/|")/.test(html),
+  "Un CTA contourne la page d’accès",
+);
 assert.equal((html.match(/<h1[ >]/g) || []).length, 1);
 for (const id of [
   "accueil",

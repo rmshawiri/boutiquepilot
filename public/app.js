@@ -78,14 +78,109 @@ document.querySelectorAll("[data-subject]").forEach((link) =>
     document.querySelector("#contact-subject").value = link.dataset.subject;
   }),
 );
-// Phase 2 : aucune requête ni simulation de succès. Le serveur SMTP relève de la phase 3.
-document
-  .querySelector("#contact-form")
-  .addEventListener("submit", (event) => event.preventDefault());
-
 const sections = ["accueil", "a-propos", "contact"].map((id) =>
   document.getElementById(id),
 );
+
+const form = document.querySelector("#contact-form");
+const formFields = form.querySelector("fieldset");
+const sendButton = form.querySelector('[type="submit"]');
+const sendLabel = sendButton.innerHTML;
+const status = document.querySelector("#contact-status");
+formFields.disabled = false;
+sendButton.disabled = false;
+let sending = false;
+const editable = ["name", "email", "phone", "subject", "message"];
+for (const key of editable) {
+  const input = form.elements.namedItem(key);
+  const error = document.createElement("span");
+  error.id = `error-${key}`;
+  error.className = "field-error";
+  error.hidden = true;
+  input.after(error);
+  input.setAttribute("aria-describedby", error.id);
+  input.addEventListener("input", () => {
+    input.removeAttribute("aria-invalid");
+    error.hidden = true;
+  });
+}
+function showStatus(message, state) {
+  status.textContent = message;
+  status.dataset.state = state;
+  status.hidden = false;
+}
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (sending || !form.reportValidity()) return;
+  const payload = Object.fromEntries(new FormData(form));
+  for (const key of editable) {
+    form.elements.namedItem(key).removeAttribute("aria-invalid");
+    document.querySelector(`#error-${key}`).hidden = true;
+  }
+  sending = true;
+  sendButton.disabled = true;
+  formFields.disabled = true;
+  form.setAttribute("aria-busy", "true");
+  sendButton.textContent = "Envoi en cours…";
+  showStatus("Votre message est en cours d’envoi.", "pending");
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 40000);
+  let focusTarget = status;
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      data = {};
+    }
+    if (response.ok) {
+      form.reset();
+      showStatus(
+        "Message envoyé avec succès. Merci de nous avoir contactés. L’équipe BoutiquePilot prendra connaissance de votre message.",
+        "success",
+      );
+    } else {
+      const messages = {
+        422: "Vérifiez les champs indiqués.",
+        429: "Vous avez envoyé plusieurs messages. Patientez 15 minutes ou contactez-nous sur WhatsApp.",
+        413: "Votre message est trop volumineux. Réduisez sa longueur.",
+      };
+      showStatus(
+        messages[response.status] ||
+          "L’envoi est momentanément indisponible. Votre texte est conservé. Réessayez plus tard ou contactez-nous sur WhatsApp.",
+        "error",
+      );
+      for (const key of editable)
+        if (typeof data.errors?.[key] === "string") {
+          const input = form.elements.namedItem(key),
+            error = document.querySelector(`#error-${key}`);
+          error.textContent = data.errors[key];
+          error.hidden = false;
+          input.setAttribute("aria-invalid", "true");
+          if (focusTarget === status) focusTarget = input;
+        }
+    }
+  } catch {
+    showStatus(
+      "L’envoi n’a pas pu être confirmé. Votre texte est conservé. Vérifiez votre connexion et patientez avant de réessayer, ou contactez-nous sur WhatsApp.",
+      "error",
+    );
+  } finally {
+    clearTimeout(timeout);
+    sending = false;
+    formFields.disabled = false;
+    sendButton.disabled = false;
+    sendButton.innerHTML = sendLabel;
+    form.removeAttribute("aria-busy");
+    focusTarget.focus({ preventScroll: true });
+  }
+});
 const navLinks = [...nav.querySelectorAll('a[href^="#"]')];
 if ("IntersectionObserver" in window) {
   const observer = new IntersectionObserver(
