@@ -11,7 +11,8 @@
     "test": "node tests/site.mjs",
     "assets": "node scripts/assets.mjs",
     "test:contact": "node --test tests/contact.test.mjs",
-    "test:contact:browser": "node tests/contact-browser.mjs"
+    "test:contact:browser": "node tests/contact-browser.mjs",
+    "test:quality": "node tests/quality.mjs"
   },
   "engines": {
     "node": ">=22"

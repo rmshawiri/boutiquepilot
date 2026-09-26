@@ -139,6 +139,9 @@ form.addEventListener("submit", async (event) => {
     } catch {
       data = {};
     }
+    if (response.ok && (response.status !== 200 || typeof data.message !== "string" || !data.message.trim())) {
+      throw new Error("Unconfirmed contact response");
+    }
     if (response.ok) {
       form.reset();
       showStatus(

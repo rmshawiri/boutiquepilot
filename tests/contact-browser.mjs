@@ -18,6 +18,8 @@ try {
     assert.equal(data.subject, "Question");
     await new Promise((r) => setTimeout(r, 300));
     if (mode === "network") return route.abort();
+    if (mode === "invalid-success") return route.fulfill({ status: 200, contentType: "text/html", body: "<html>Unexpected response</html>" });
+    if (mode === "oversized") return route.fulfill({ status: 413, contentType: "text/plain", body: "Too large" });
     const status =
       mode === "success"
         ? 200
@@ -53,6 +55,8 @@ try {
     "validation",
     "limited",
     "network",
+    "invalid-success",
+    "oversized",
   ]) {
     mode = next;
     await fill();

@@ -101,3 +101,9 @@ Le fichier des comptes reste hors du dépôt et hors de la racine publique. Ne j
 L’application utilise le stockage local, lié à l’origine et au navigateur. Fichier local, aperçu local, preview et domaine officiel ne partagent pas automatiquement les données. Utiliser export/import pour les transférer et conseiller des sauvegardes régulières. Le site vitrine ne modifie pas ce stockage.
 
 Les coordonnées publiques proviennent exclusivement du fichier officiel. Les liens sociaux retenus sont Facebook, Instagram et LinkedIn. La disponibilité distante de ces profils reste à revérifier avant publication.
+
+## Qualité — Phase 4
+
+Commande complémentaire : npm run test:quality (serveur local actif). Elle mesure le chargement initial et les déplacements de mise en page avec app.js retardé de 1,5 seconde, vérifie le texte à 200 % et ouvre les 14 modules de la bêta dans un profil isolé sans soumission métier. Ces mesures locales ne sont pas des Core Web Vitals de production. Les preuves restent dans artifacts/qa/phase4-quality.json.
+
+La déclaration JavaScript précoce évite le déplacement initial du menu mobile. Le formulaire conserve les données si une réponse positive ne contient pas la confirmation JSON attendue. Les réponses 413 et positives illisibles sont couvertes par les tests navigateur. Aucun changement de design ni de la bêta.
