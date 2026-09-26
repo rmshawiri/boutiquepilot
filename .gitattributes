@@ -1,0 +1,4 @@
+* text=auto eol=lf
+public/beta/BoutiquePilot.html -text -diff
+*.png binary
+*.webp binary

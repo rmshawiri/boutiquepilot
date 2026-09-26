@@ -1,0 +1,5 @@
+public/beta/
+public/assets/
+artifacts/
+node_modules/
+package-lock.json
