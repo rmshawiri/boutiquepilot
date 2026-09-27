@@ -9,6 +9,6 @@ for(const [density,size] of Object.entries({mdpi:48,hdpi:72,xhdpi:96,xxhdpi:144,
   const inset=await sharp(source).resize(art,art).png().toBuffer();
   await sharp({create:{width:canvas,height:canvas,channels:4,background:'#ffffff00'}}).composite([{input:inset,gravity:'centre'}]).png().toFile(`${dir}/ic_launcher_foreground.png`);
 }
-await sharp(source).resize(288,288).png().toFile(`${res}/drawable/boutiquepilot_splash.png`);
+// Splash is generated separately by scripts/splash.mjs from the transparent logo.
 await writeFile(`${res}/values/ic_launcher_background.xml`,'<?xml version="1.0" encoding="utf-8"?><resources><color name="ic_launcher_background">#FFFFFF</color></resources>\n');
 console.log('Official artwork scaled for Android launcher and splash.');

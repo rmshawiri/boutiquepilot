@@ -1,0 +1,11 @@
+import sharp from 'sharp';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
+assert.equal((await sharp('resources/launch-logo.png').metadata()).hasAlpha,true);
+const {data,info}=await sharp('android/app/src/main/res/drawable/boutiquepilot_splash.png').ensureAlpha().raw().toBuffer({resolveWithObject:true});
+for(let y=0;y<info.height;y++)for(let x=0;x<info.width;x++)if(data[(y*info.width+x)*4+3])assert.ok(Math.hypot(x-info.width/2,y-info.height/2)<info.width/3);
+const paths=execFileSync('git',['ls-files','android/app/src/main/res/mipmap-*']).toString().trim().split('\n');
+for(const p of paths)assert.deepEqual(await readFile(p),execFileSync('git',['show','8032a71:mobile/'+p]));
+await sharp({create:{width:864,height:864,channels:4,background:'#fff'}}).composite([{input:await readFile('android/app/src/main/res/drawable/boutiquepilot_splash.png')}]).png().toFile('artifacts/splash-white-preview.png');
+console.log('Transparent logo safe circle, original launcher resources unchanged: OK');

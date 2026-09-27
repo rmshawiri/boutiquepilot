@@ -5,7 +5,21 @@
   const launch = document.createElement('div');
   launch.id='android-launch';launch.setAttribute('aria-hidden','true');
   launch.innerHTML='<img src="android-icon.png" alt=""><p>VERSION BÊTA · MORA SHAWIRI</p><i></i>';
-  document.body.append(launch);setTimeout(()=>launch.remove(),1000);
+  document.body.append(launch);
+  window.addEventListener('boutiquepilot-launch',()=>{
+    launch.classList.add('playing');
+    setTimeout(()=>launch.remove(),3050);
+  },{once:true});
+  launch.querySelector('img').decode().catch(()=>{}).then(()=>native.launchReady());
+  const nav=document.getElementById('nav');
+  function attachExit(){
+    if(nav.querySelector('#android-exit'))return;
+    const button=document.createElement('button');
+    button.id='android-exit';button.type='button';button.textContent='Quitter l’application';
+    button.addEventListener('click',()=>native.requestExit().catch(()=>toast('Impossible de quitter pour le moment.')));
+    nav.append(button);
+  }
+  attachExit();new MutationObserver(attachExit).observe(nav,{childList:true});
 
   let saving=false,opening=false;
   async function saveJSON(name,text){

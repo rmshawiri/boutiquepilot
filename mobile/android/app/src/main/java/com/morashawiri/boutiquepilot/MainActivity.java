@@ -11,8 +11,18 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.graphics.Insets;
 
 public class MainActivity extends BridgeActivity {
+    private boolean launchReady = false;
+    public void releaseLaunch() { runOnUiThread(() -> launchReady = true); }
+
     @Override public void onCreate(Bundle state) {
-        SplashScreen.installSplashScreen(this);
+        SplashScreen splash = SplashScreen.installSplashScreen(this);
+        splash.setKeepOnScreenCondition(() -> !launchReady);
+        splash.setOnExitAnimationListener(provider -> {
+            provider.getView().animate().alpha(0f).setDuration(180).withEndAction(() -> {
+                provider.remove();
+                getBridge().getWebView().evaluateJavascript("window.dispatchEvent(new Event('boutiquepilot-launch'))", null);
+            }).start();
+        });
         registerPlugin(BoutiqueFilesPlugin.class);
         super.onCreate(state);
         if (getBridge() == null) return;

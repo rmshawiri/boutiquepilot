@@ -28,6 +28,28 @@ import java.nio.charset.StandardCharsets;
 /** Android document access only. Never parses or transforms the business JSON. */
 @CapacitorPlugin(name = "BoutiqueFiles")
 public class BoutiqueFilesPlugin extends Plugin {
+    @PluginMethod public void launchReady(PluginCall call) {
+        ((MainActivity) getActivity()).releaseLaunch();
+        call.resolve();
+    }
+    private boolean exitDialogOpen = false;
+    @PluginMethod public void requestExit(PluginCall call) {
+        getActivity().runOnUiThread(() -> {
+            if (exitDialogOpen) { call.resolve(); return; }
+            exitDialogOpen = true;
+            new androidx.appcompat.app.AlertDialog.Builder(getActivity())
+                .setMessage("Voulez-vous vraiment quitter BoutiquePilot ?")
+                .setNegativeButton("Annuler", (dialog, which) -> call.resolve())
+                .setPositiveButton("Quitter", (dialog, which) -> {
+                    call.resolve();
+                    getActivity().finishAndRemoveTask();
+                })
+                .setOnCancelListener(dialog -> call.resolve())
+                .setOnDismissListener(dialog -> exitDialogOpen = false)
+                .show();
+        });
+    }
+
     @PluginMethod public void saveJSON(PluginCall call) {
         String name = call.getString("name");
         if (name == null || !name.matches("BoutiquePilot_(SAUV_\\d{2}-\\d{2}-\\d{4}_\\d+|DONNEES_ORIGINALES)\\.json") || call.getString("text") == null) {
