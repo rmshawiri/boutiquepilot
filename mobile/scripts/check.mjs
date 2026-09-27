@@ -1,0 +1,12 @@
+import {readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+const original=await readFile('../public/beta/BoutiquePilot.html','utf8');
+const generated=await readFile('www/index.html','utf8');
+assert.equal(generated.replace('<link rel="stylesheet" href="android.css">\n','').replace('<script src="android.js"></script>\n',''),original);
+const config=JSON.parse(await readFile('capacitor.config.json','utf8'));
+assert.ok(!config.server.url);assert.equal(config.server.hostname,'localhost');
+assert.equal(createHash('sha256').update(Buffer.from(original)).digest('hex'),'4ecb9146067438df0da2fa74e367118dc3e0b28496f5e7fda076fcced4dbb6e5');
+assert.ok(!/(?:src|href)=["']https?:/.test(generated));
+assert.ok(!/fbq\(|connect.facebook.net|supabase|firebase/i.test(generated));
+console.log('Intégrité métier, référence, ressources locales et absence de serveur distant : OK');

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">BoutiquePilot</string>
+    <string name="title_activity_main">BoutiquePilot</string>
+    <string name="package_name">com.morashawiri.boutiquepilot</string>
+    <string name="custom_url_scheme">com.morashawiri.boutiquepilot</string>
+</resources>

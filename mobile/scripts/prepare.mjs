@@ -1,0 +1,20 @@
+import {readFile,mkdir,writeFile,copyFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+import {resolve,dirname} from 'node:path';
+import assert from 'node:assert/strict';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const source=await readFile(resolve(root,'../public/beta/BoutiquePilot.html'));
+const expected='4ecb9146067438df0da2fa74e367118dc3e0b28496f5e7fda076fcced4dbb6e5';
+assert.equal(createHash('sha256').update(source).digest('hex'),expected,'Source officielle altérée');
+let html=source.toString('utf8');
+assert.equal((html.match(/<\/head>/g)||[]).length,1);
+assert.equal((html.match(/<\/body>/g)||[]).length,1);
+// Only append Android presentation/adapters. Never rewrite the original business scripts.
+html=html.replace('</head>','<link rel="stylesheet" href="android.css">\n</head>');
+html=html.replace('</body>','<script src="android.js"></script>\n</body>');
+await mkdir(resolve(root,'www'),{recursive:true});
+await writeFile(resolve(root,'www/index.html'),html);
+for(const file of ['android.js','android.css'])await copyFile(resolve(root,'native',file),resolve(root,'www',file));
+await copyFile(resolve(root,'resources/icon.png'),resolve(root,'www/android-icon.png'));
+console.log('Source officielle vérifiée ; contenu Android embarqué préparé.');

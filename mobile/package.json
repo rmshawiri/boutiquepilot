@@ -6,7 +6,8 @@
   "scripts": {
     "prepare:web": "node scripts/prepare.mjs",
     "sync": "npm run prepare:web && cap sync android",
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "test": "npm run check && node tests/core.cjs && node tests/integrity.cjs && node tests/adapters.mjs"
   },
   "dependencies": {
     "@capacitor/core": "8.5.2",

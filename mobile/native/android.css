@@ -1,0 +1,9 @@
+/* Android launch presentation only; business interface remains the official source. */
+#android-launch{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(ellipse at 50% 35%,#215273 0,#132f4c 62%,#0c2238 100%);color:#fff;pointer-events:none;animation:launch-out .25s ease .65s both}
+#android-launch img{width:132px;height:132px;object-fit:contain;filter:drop-shadow(0 12px 24px #0003);animation:launch-in .45s cubic-bezier(.2,.8,.2,1) both}
+#android-launch p{font:600 11px/1.6 system-ui,sans-serif;letter-spacing:2px;color:#b3daef;margin:20px 0 0;animation:launch-in .4s ease .1s both}
+#android-launch i{display:block;width:42px;height:3px;border-radius:3px;margin-top:20px;background:#25a8e9;animation:launch-line .5s ease both}
+@keyframes launch-in{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes launch-out{to{opacity:0;visibility:hidden}}
+@keyframes launch-line{from{opacity:0;transform:scaleX(.3)}to{opacity:1;transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){#android-launch{animation:launch-out .1s ease .15s both}#android-launch img,#android-launch p,#android-launch i{animation:none}}
