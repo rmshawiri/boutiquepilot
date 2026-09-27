@@ -13,3 +13,6 @@ key.properties
 signing.properties
 .env*
 artifacts/
+
+__pycache__/
+*.pyc

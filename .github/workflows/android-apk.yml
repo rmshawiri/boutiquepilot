@@ -1,4 +1,4 @@
-name: Android control APK
+name: Android unsigned release for local durable signing
 on:
   push:
     branches: [android/beta]
@@ -31,18 +31,20 @@ jobs:
         run: |
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-36' 'build-tools;36.0.0'
           cd android
-          bash gradlew assembleDebug --no-daemon --max-workers=2 --console=plain
-      - name: Verify signed APK and embedded assets
+          bash gradlew assembleRelease --no-daemon --max-workers=2 --console=plain
+      - name: Verify unsigned APK and prepare local signing tools
         run: |
           mkdir -p artifacts
-          cp android/app/build/outputs/apk/debug/app-debug.apk artifacts/BoutiquePilot-Android-Beta-controle.apk
-          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose artifacts/BoutiquePilot-Android-Beta-controle.apk > artifacts/signature.txt
-          "$ANDROID_HOME/build-tools/36.0.0/aapt" dump badging artifacts/BoutiquePilot-Android-Beta-controle.apk > artifacts/package.txt
-          python3 scripts/verify-apk.py artifacts/BoutiquePilot-Android-Beta-controle.apk
-          sha256sum artifacts/BoutiquePilot-Android-Beta-controle.apk > artifacts/SHA256SUMS.txt
+          cp android/app/build/outputs/apk/release/app-release-unsigned.apk artifacts/BoutiquePilot-Android-unsigned.apk
+          "$ANDROID_HOME/build-tools/36.0.0/zipalign" -c -v 4 artifacts/BoutiquePilot-Android-unsigned.apk > artifacts/alignment.txt
+          "$ANDROID_HOME/build-tools/36.0.0/aapt" dump badging artifacts/BoutiquePilot-Android-unsigned.apk > artifacts/package.txt
+          "$ANDROID_HOME/build-tools/36.0.0/aapt" dump xmltree artifacts/BoutiquePilot-Android-unsigned.apk AndroidManifest.xml > artifacts/manifest.txt
+          python3 scripts/verify-apk.py artifacts/BoutiquePilot-Android-unsigned.apk
+          cp "$ANDROID_HOME/build-tools/36.0.0/lib/apksigner.jar" artifacts/apksigner.jar
+          sha256sum artifacts/BoutiquePilot-Android-unsigned.apk artifacts/apksigner.jar > artifacts/SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: BoutiquePilot-Android-Beta-controle
+          name: BoutiquePilot-Android-unsigned
           path: mobile/artifacts/
           retention-days: 1
           if-no-files-found: error

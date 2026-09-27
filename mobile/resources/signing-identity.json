@@ -1,0 +1,7 @@
+{
+  "applicationId": "com.morashawiri.boutiquepilot",
+  "alias": "boutiquepilot-app",
+  "certificateSha256": "f8b6ad7afe5f7adf2adae89c353d8b9ddeccd1c01f5de558d5f9fffacc42b597",
+  "keyType": "RSA-3072",
+  "expires": "2056-09-19T22:38:59+00:00"
+}
