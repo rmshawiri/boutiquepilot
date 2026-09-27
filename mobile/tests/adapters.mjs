@@ -16,11 +16,11 @@ try{
  const nativeContext=await b.newContext({viewport:{width:390,height:844},hasTouch:true,isMobile:true});
  await nativeContext.addInitScript(()=>{
   window.io={mode:'ok',saved:null,selected:null,printed:0};
-  window.Capacitor={isNativePlatform:()=>true,registerPlugin:()=>({
+  window.Capacitor={isNativePlatform:()=>true,Plugins:{BoutiqueFiles:{
    saveJSON:async value=>{if(io.mode==='error')throw Error('I/O');if(io.mode==='cancel')return {cancelled:true};io.saved=value;return {cancelled:false};},
    openJSON:async()=>io.selected||{cancelled:true},
    printTicket:async()=>{io.printed++;}
-  })};
+  }}};
  });
  const app=await nativeContext.newPage();app.on('pageerror',e=>errors.push(e.message));app.on('request',r=>{if(!r.url().startsWith(url))external.push(new URL(r.url()).origin);});
  app.on('dialog',d=>d.accept());await app.goto(url);

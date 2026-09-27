@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    buildFeatures { buildConfig true }
     def signingPath = System.getenv('BOUTIQUEPILOT_KEYSTORE')
     if (signingPath) {
         signingConfigs {
@@ -55,4 +56,3 @@ dependencies {
 }
 
 apply from: 'capacitor.build.gradle'
-

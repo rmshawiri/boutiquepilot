@@ -1,7 +1,7 @@
 /* Platform adapters only. The source's calculations, database schema and validators are reused. */
 (() => {
   if (!window.Capacitor?.isNativePlatform()) return;
-  const native = Capacitor.registerPlugin('BoutiqueFiles');
+  const native = Capacitor.Plugins.BoutiqueFiles;
   const launch = document.createElement('div');
   launch.id='android-launch';launch.setAttribute('aria-hidden','true');
   launch.innerHTML='<img src="android-icon.png" alt=""><p>VERSION BÊTA · MORA SHAWIRI</p><i></i>';

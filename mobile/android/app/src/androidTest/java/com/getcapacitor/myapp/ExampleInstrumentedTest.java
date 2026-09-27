@@ -21,6 +21,11 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.getcapacitor.app", appContext.getPackageName());
+        assertEquals("com.morashawiri.boutiquepilot", appContext.getPackageName());
+        assertEquals(android.content.pm.PackageManager.PERMISSION_DENIED,
+            appContext.checkSelfPermission(android.Manifest.permission.INTERNET));
+        try (java.io.InputStream input = appContext.getAssets().open("public/index.html")) {
+            assertTrue(input.read() != -1);
+        }
     }
 }

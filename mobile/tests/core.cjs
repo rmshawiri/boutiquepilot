@@ -1,5 +1,5 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
-let memory=new Map();let ctx=vm.createContext({document:{addEventListener(){}},window:{addEventListener(){}},console,Intl,Date,window:{addEventListener(){}},localStorage:{getItem:k=>memory.get(k)||null,setItem:(k,v)=>memory.set(k,v)},assert});
+let memory=new Map();let ctx=vm.createContext({document:{addEventListener(){}},window:{addEventListener(){}},console,Intl,Date,localStorage:{getItem:k=>memory.get(k)||null,setItem:(k,v)=>memory.set(k,v)},assert});
 vm.runInContext(require('./source-core.cjs'),ctx);
 vm.runInContext(`
 let tests=[];const check=(name,fn)=>{fn();tests.push(name)};
