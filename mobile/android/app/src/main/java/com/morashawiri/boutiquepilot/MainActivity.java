@@ -31,7 +31,7 @@ public class MainActivity extends BridgeActivity {
         ViewCompat.requestApplyInsets(root);
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override public void handleOnBackPressed() {
-                web.evaluateJavascript("(()=>{if(document.getElementById('modal')?.classList.contains('open')){closeModal();return true;}const nav=document.getElementById('nav');if(nav?.classList.contains('expanded')){nav.classList.remove('expanded');return true;}return false;})()", handled -> {
+                web.evaluateJavascript("(()=>{const combo=document.querySelector('[role=combobox][aria-expanded=true]');if(combo){combo.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));return true;}if(document.getElementById('modal')?.classList.contains('open')){closeModal();return true;}const nav=document.getElementById('nav');if(nav?.classList.contains('expanded')){nav.classList.remove('expanded');return true;}return false;})()", handled -> {
                     if (!"true".equals(handled)) moveTaskToBack(true);
                 });
             }
