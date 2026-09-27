@@ -1,0 +1,16 @@
+{
+  "name": "boutiquepilot-android-beta",
+  "version": "1.0.0-beta.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare:web": "node scripts/prepare.mjs",
+    "sync": "npm run prepare:web && cap sync android",
+    "check": "node scripts/check.mjs"
+  },
+  "dependencies": {
+    "@capacitor/core": "8.5.2",
+    "@capacitor/android": "8.5.2"
+  },
+  "devDependencies": { "@capacitor/cli": "8.5.2" }
+}

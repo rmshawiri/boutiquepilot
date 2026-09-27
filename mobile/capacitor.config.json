@@ -1,0 +1,7 @@
+{
+  "appId": "com.morashawiri.boutiquepilot",
+  "appName": "BoutiquePilot",
+  "webDir": "www",
+  "server": { "hostname": "localhost", "androidScheme": "https", "cleartext": false },
+  "android": { "allowMixedContent": false, "backgroundColor": "#132f4c", "webContentsDebuggingEnabled": false }
+}
