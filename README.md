@@ -37,12 +37,14 @@ Le test navigateur nécessite le serveur actif et Chrome installé (`channel: ch
 
 ## Règle absolue d’intégrité
 
+Micro-correction post-livraison autorisée le 27 septembre 2026 : ajout d’une couche de menus déroulants dans la page, conservant les selects, valeurs, validations et événements métier existants. Aucune fonction métier modifiée. L’empreinte ci-dessous remplace celle de Phase 1 pour cette seule évolution validée.
+
 Ne jamais éditer, reformater, minifier ou transformer `public/beta/BoutiquePilot.html` ni la référence `../01 Notre Outil/BoutiquePilot.html`.
 
-SHA-256 attendu, relevé en Phase 1 :
+SHA-256 de la nouvelle référence :
 
 ```text
-93007be8d597940ee10e6ec4be1dc25a25eec7f7b03978201c83fce111a464be
+4ecb9146067438df0da2fa74e367118dc3e0b28496f5e7fda076fcced4dbb6e5
 ```
 
 `.gitattributes` désactive toute conversion de fins de ligne pour la copie de la bêta. `npm run build` vérifie cette empreinte, y compris sur Vercel où la référence extérieure au dépôt n’existe pas. Aucun build ne réécrit ce fichier.

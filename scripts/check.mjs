@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import assert from "node:assert/strict";
 
 const expected =
-  "93007be8d597940ee10e6ec4be1dc25a25eec7f7b03978201c83fce111a464be";
+  "4ecb9146067438df0da2fa74e367118dc3e0b28496f5e7fda076fcced4dbb6e5";
 const hash = (b) => createHash("sha256").update(b).digest("hex");
 assert.equal(
   hash(await readFile("public/beta/BoutiquePilot.html")),

@@ -227,4 +227,185 @@ function restoreDemo(){if(confirm('Remplacer toutes vos données par la démonst
 function resetAll(){if(confirm('SUPPRIMER toutes les données de travail ? Cette action est irréversible sans sauvegarde.'))attempt(()=>{replaceDB(emptyDB());cart=[];filters={};render();toast('Boutique vide prête à être configurée.')})}
 window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue!==storageText){$('notice').innerHTML='<div class="notice">Un autre onglet a modifié les données. Rechargez cette page avant toute opération.</div>'}});
 loadDB();$('nav').innerHTML=Object.entries(meta).map(([id,[icon,label]])=>`<button data-v="${id}" onclick="show('${id}')">${icon} ${esc(label)}</button>`).join('');show('dash');
-</script></body></html>
+</script><!-- Micro-correction autorisée : interface des listes déroulantes uniquement. -->
+<style>
+select.bp-native-select{display:none!important}
+.bp-select{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;max-width:100%;border:1px solid #bdcfdb;border-radius:7px;padding:10px;font:inherit;font-weight:400;text-align:left;color:inherit;background:#fff;cursor:pointer}
+.bp-select span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bp-select::after{content:'▾';flex:none;color:#526b80}
+.bp-select:focus-visible{outline:2px solid #1479b8;outline-offset:2px}
+.bp-select[aria-invalid=true]{border-color:#c63d45}
+.filters .bp-select{width:100%;padding:8px;font-size:13px}
+.form .bp-select{width:100%;min-width:0}
+.item .bp-select{width:100%;margin:7px 0 0;padding:8px;font-size:12px}
+.bp-options{position:fixed;z-index:20;overflow-y:auto;overscroll-behavior:contain;border:1px solid #bdcfdb;border-radius:7px;background:#fff;color:#263b50;box-shadow:0 5px 20px #132f4c30;padding:4px;font:14px/1.4 Inter,Segoe UI,Arial,sans-serif}
+.bp-option{padding:11px 12px;min-height:42px;cursor:pointer;overflow-wrap:anywhere;border-radius:4px}
+.bp-option[aria-selected=true]{font-weight:700}
+.bp-option.bp-active{background:#e6f1f8;outline:2px solid #1479b8;outline-offset:-2px}
+.bp-option[aria-disabled=true]{opacity:.5;cursor:not-allowed}
+.bp-select-error{color:#a3222a;font-size:12px}
+</style>
+<script>
+/* The original selects remain the source of truth for forms and business handlers. */
+(() => {
+  const controls = new WeakMap();
+  let serial = 0, opened = null, search = '', searchedAt = 0;
+  const enabled = option => !option.disabled && !option.parentElement.disabled && !option.hidden;
+  function close() {
+    if (!opened) return;
+    opened.button.setAttribute('aria-expanded', 'false');
+    opened.button.removeAttribute('aria-activedescendant');
+    opened.list.remove();
+    opened = null;
+  }
+  function sync(state) {
+    const {select, button, text, error} = state;
+    text.textContent = select.selectedOptions[0]?.textContent || '—';
+    button.disabled = select.matches(':disabled');
+    button.setAttribute('aria-required', String(select.required));
+    const label = select.getAttribute('aria-label') || [...select.labels].map(x => x.textContent.trim()).join(' ');
+    button.setAttribute('aria-label', label || select.name || 'Choisir une valeur');
+    state.list.setAttribute('aria-label', label || select.name || 'Choisir une valeur');
+    if (select.hasAttribute('aria-labelledby')) button.setAttribute('aria-labelledby', select.getAttribute('aria-labelledby'));
+    if (select.validity.valid) { button.removeAttribute('aria-invalid'); error.hidden = true; }
+    if (opened === state && (button.disabled || !button.getClientRects().length)) close();
+  }
+  function position() {
+    if (!opened) return;
+    const {button, list} = opened;
+    if (!button.isConnected || !button.getClientRects().length) return close();
+    const r = button.getBoundingClientRect(), vv = window.visualViewport;
+    const left = vv?.offsetLeft || 0, top = vv?.offsetTop || 0;
+    const width = vv?.width || innerWidth, height = vv?.height || innerHeight;
+    const below = top + height - r.bottom - 8, above = r.top - top - 8;
+    const up = below < 160 && above > below, room = Math.max(48, up ? above : below);
+    list.style.width = Math.min(Math.max(r.width, 180), width - 16) + 'px';
+    list.style.maxHeight = Math.min(280, room) + 'px';
+    list.style.left = Math.max(left + 8, Math.min(r.left, left + width - list.offsetWidth - 8)) + 'px';
+    list.style.top = (up ? Math.max(top + 8, r.top - list.offsetHeight - 4) : r.bottom + 4) + 'px';
+  }
+  function activate(state, index) {
+    state.active = index;
+    for (const row of state.list.children) row.classList.toggle('bp-active', Number(row.dataset.index) === index);
+    const row = state.list.querySelector(`[data-index="${index}"]`);
+    if (row) { state.button.setAttribute('aria-activedescendant', row.id); row.scrollIntoView({block:'nearest'}); }
+  }
+  function open(state) {
+    sync(state);
+    if (state.button.disabled) return;
+    close(); opened = state;
+    const {select, button, list} = state;
+    list.replaceChildren();
+    [...select.options].forEach((option, index) => {
+      if (option.hidden) return;
+      const row = document.createElement('div');
+      row.id = list.id + '-' + index; row.className = 'bp-option'; row.dataset.index = index;
+      row.setAttribute('role', 'option'); row.setAttribute('aria-selected', String(index === select.selectedIndex));
+      row.setAttribute('aria-disabled', String(!enabled(option)));
+      row.textContent = option.textContent;
+      list.append(row);
+    });
+    (select.closest('[role="dialog"]') || document.body).append(list);
+    button.setAttribute('aria-expanded', 'true');
+    position();
+    activate(state, enabled(select.options[select.selectedIndex] || {disabled:true}) ? select.selectedIndex : [...select.options].findIndex(enabled));
+  }
+  function choose(state, index) {
+    const {select, button} = state, option = select.options[index];
+    if (!option || !enabled(option)) return;
+    const changed = select.selectedIndex !== index, id = select.id;
+    select.selectedIndex = index;
+    close(); sync(state); button.focus({preventScroll:true});
+    if (changed) {
+      select.dispatchEvent(new Event('input', {bubbles:true}));
+      select.dispatchEvent(new Event('change', {bubbles:true}));
+      // Some filters rebuild their own field. Restore keyboard focus to its replacement.
+      queueMicrotask(() => {
+        if (!button.isConnected && id) controls.get(document.getElementById(id))?.button.focus({preventScroll:true});
+      });
+    }
+  }
+  function enhance(select) {
+    if (controls.has(select)) { sync(controls.get(select)); return; }
+    const button = document.createElement('button'), text = document.createElement('span');
+    const list = document.createElement('div'), error = document.createElement('span');
+    button.type = 'button'; button.className = 'bp-select'; button.setAttribute('role', 'combobox');
+    button.setAttribute('aria-haspopup', 'listbox'); button.setAttribute('aria-expanded', 'false');
+    list.id = 'bp-options-' + (++serial); list.className = 'bp-options'; list.setAttribute('role', 'listbox');
+    button.setAttribute('aria-controls', list.id);
+    error.id = list.id + '-error'; error.className = 'bp-select-error'; error.hidden = true;
+    button.setAttribute('aria-describedby', [select.getAttribute('aria-describedby'), error.id].filter(Boolean).join(' '));
+    button.append(text);
+    const hadFocus = document.activeElement === select;
+    select.after(button, error); select.classList.add('bp-native-select');
+    const state = {select, button, text, list, error, active:-1}; controls.set(select, state);
+    // Reflect existing programmatic value assignments without changing their semantics.
+    for (const key of ['value', 'selectedIndex']) {
+      const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, key);
+      Object.defineProperty(select, key, {configurable:true, get(){return descriptor.get.call(this);}, set(value){descriptor.set.call(this,value);sync(state);}});
+    }
+    select.addEventListener('change', () => sync(state));
+    select.addEventListener('invalid', event => {
+      event.preventDefault(); sync(state); error.textContent = select.validationMessage; error.hidden = false;
+      button.setAttribute('aria-invalid', 'true'); button.focus();
+    });
+    select.addEventListener('focus', () => button.focus());
+    button.addEventListener('click', () => opened === state ? close() : open(state));
+    button.addEventListener('keydown', event => {
+      const key = event.key, isOpen = opened === state;
+      if (key === 'Escape' && isOpen) {event.preventDefault();event.stopPropagation();close();return;}
+      if (key === 'Tab') {close();return;}
+      if (['ArrowDown','ArrowUp','Home','End','Enter',' '].includes(key)) {
+        event.preventDefault(); event.stopPropagation();
+        if (!isOpen) {open(state); if (key !== 'Home' && key !== 'End') return;}
+        else if (key === 'Enter' || key === ' ') {choose(state,state.active);return;}
+        const indices = [...select.options].map((o,i) => enabled(o) ? i : -1).filter(i => i >= 0);
+        const at = indices.indexOf(state.active);
+        const index = key === 'Home' ? indices[0] : key === 'End' ? indices.at(-1) : indices[Math.max(0,Math.min(indices.length-1,at+(key === 'ArrowUp' ? -1 : 1)))];
+        if (index !== undefined) activate(state,index);
+      } else if (key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
+        event.preventDefault(); if (!isOpen) open(state);
+        search = Date.now()-searchedAt > 700 ? key : search+key; searchedAt = Date.now();
+        const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase();
+        const index = [...select.options].findIndex(o => enabled(o) && norm(o.textContent.trim()).startsWith(norm(search)));
+        if (index >= 0) activate(state,index);
+      }
+    });
+    button.addEventListener('blur', () => {if (opened === state) close();});
+    list.addEventListener('pointerdown', event => event.preventDefault());
+    list.addEventListener('click', event => {
+      const row = event.target.closest('[data-index]'); if (row) choose(state,Number(row.dataset.index));
+    });
+    sync(state); if (hadFocus) button.focus();
+  }
+  function scan(root) {
+    if (root.nodeType !== 1) return;
+    if (root.matches('select')) enhance(root);
+    root.querySelectorAll('select').forEach(enhance);
+  }
+  scan(document.body);
+  new MutationObserver(records => {
+    const refresh = new Set();
+    for (const record of records) {
+      if (record.type === 'childList') record.addedNodes.forEach(scan);
+      const select = record.target.nodeType === 1 ? record.target.closest('select') : record.target.parentElement?.closest('select');
+      if (select && controls.has(select)) refresh.add(select);
+      if (record.type === 'attributes' && record.target.matches('fieldset')) scan(record.target);
+    }
+    for (const select of refresh) {const state = controls.get(select);sync(state);if(opened===state)open(state);}
+    if (opened && !opened.button.isConnected) close();
+  }).observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['disabled','required','selected','label','value','hidden','aria-label','aria-labelledby']});
+  document.addEventListener('click', event => {
+    const label = event.target.closest('label'), state = label?.control && controls.get(label.control);
+    if (state) {event.preventDefault();state.button.focus();}
+    if (opened && !opened.button.contains(event.target) && !opened.list.contains(event.target)) close();
+  });
+  document.addEventListener('reset', () => setTimeout(() => document.querySelectorAll('select').forEach(enhance),0));
+  window.addEventListener('resize',position);
+  document.addEventListener('scroll',position,true);
+  window.visualViewport?.addEventListener('resize',position);
+  window.visualViewport?.addEventListener('scroll',position);
+})();
+</script>
+
+</body></html>

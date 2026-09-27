@@ -302,6 +302,25 @@ fieldset {
   height: 58px;
   object-fit: contain;
 }
+.header .brand img {
+  width: 72px;
+  height: 72px;
+}
+.header .brand-slogan {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+@media (max-width: 539px) {
+  .header .brand img { width: 54px; height: 54px; }
+  .header .brand-slogan { font-size: 10px; white-space: nowrap; }
+}
+@media (max-width: 359px) {
+  .header .brand img { width: 48px; height: 48px; }
+  .header .brand-slogan { font-size: 9px; }
+}
 .brand-blue {
   color: var(--blue);
 }
