@@ -28,7 +28,7 @@ Contact concernant BoutiquePilot : boutiquepilot@morashawiri.com. Ce projet de t
 
 ## Points empêchant une soumission immédiate
 
-- Confirmer la mise à jour Bêta 3 → Bêta 4 et les scénarios réels documentés.
+- Validation fonctionnelle et mise à jour Bêta 3 → Bêta 4 : confirmées réussies par le propriétaire.
 - Ajouter les quatre vraies captures Android validées.
 - Valider et héberger une politique Android sur une URL publique pérenne, non géobloquée ; vérifier son accès et la rendre accessible dans l’application avant soumission. Aucune URL de politique Android non vérifiée n’est inventée ; aucun site n’a été modifié dans cette phase.
 - Configurer Play App Signing en conservant le certificat durable si les mises à jour doivent fonctionner entre installations directes et Play. Ne pas choisir une nouvelle clé Google automatiquement sans étudier cette compatibilité. Le keystore privé ne va jamais dans le ZIP Play ; un éventuel transfert chiffré de clé s’effectuera séparément via le procédé officiel Play.

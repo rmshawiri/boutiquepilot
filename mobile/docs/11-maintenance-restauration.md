@@ -29,7 +29,7 @@ L’archive ZIP privée n’est pas elle-même chiffrée : le keystore qu’elle
 5. Signer ensuite le AAB avec scripts/sign-bundle.py : --input AAB --jdk DOSSIER_JDK --bundletool JAR --output DESTINATION --vault COFFRE. Il impose la même version que l’APK signé, vérifie JAR/certificat/bundletool. Un AAB se signe avec jarsigner, pas apksigner.
 6. Vérifier signatures, empreintes, ZIP, package/minSdk/targetSdk, absence de secrets et mise à jour réelle avec données. Archiver le reçu et les deux livrables. Pas de publication automatique.
 
-Une correction du métier ou des adaptateurs exige une revue et les tests adaptés. La Bêta 4 est candidate à validation finale ; les validations propriétaire manquantes ne doivent jamais être transformées en succès implicites.
+Une correction du métier ou des adaptateurs exige une revue et les tests adaptés. La Bêta 4 est validée fonctionnellement par le propriétaire, y compris la mise à jour sans désinstallation. Ces résultats n’équivalent pas à une approbation Google Play.
 
 ## Deux archives distinctes
 

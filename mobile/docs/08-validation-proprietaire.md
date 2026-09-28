@@ -1,8 +1,32 @@
-# Dernière validation propriétaire — Bêta 3 → Bêta 4
+# Validation propriétaire — BoutiquePilot Android Bêta 4
 
-Ne pas désinstaller Bêta 3. Les observations déjà confirmées sont : installation, icône officielle, écran blanc/logo complet, écran animé bleu et lancement normal. Les autres contrôles ne sont pas présumés réussis.
+**VALIDATION FONCTIONNELLE ANDROID PROPRIÉTAIRE : RÉUSSIE.**
 
-## Mise à jour : critère bloquant
+Source : confirmation explicite du propriétaire reçue dans cette conversation le 28 septembre 2026, après essais de Bêta 4 sur son téléphone. Ces résultats sont déclarés par le propriétaire ; ils ne sont pas des tests sur téléphone exécutés par l’assistant. Ils ne constituent pas une approbation Google Play.
+
+| Test réel | Résultat |
+|---|---|
+| Mise à jour Bêta 3 → Bêta 4 par-dessus, sans désinstallation | RÉUSSI |
+| Conservation des données après mise à jour | RÉUSSI |
+| Fonctionnement hors connexion / mode avion | RÉUSSI |
+| Fermeture, arrêt forcé/reprise, relance | RÉUSSI |
+| Persistance des données et redémarrage du téléphone | RÉUSSI |
+| Sauvegarde JSON Android | RÉUSSI |
+| Import/restauration JSON et compatibilité des sauvegardes | RÉUSSI |
+| Impression / PDF | RÉUSSI |
+| Quitter l’application / Annuler | RÉUSSI |
+| Navigation, ergonomie et fonctionnement général | RÉUSSI |
+| Écrans et animation de lancement | RÉUSSI |
+
+Application validée : com.morashawiri.boutiquepilot, version 1.0.0-beta.4, versionCode 4. Aucun nouveau binaire n’est nécessaire pour enregistrer ces résultats. La signature durable et la continuité des mises à jour ont été confirmées par le scénario réel Bêta 3 → Bêta 4.
+
+Le modèle/version exacte du téléphone et les journaux techniques n’ont pas été fournis ; ne pas extrapoler ces essais à tous les appareils Android. Les contrôles techniques API 24–36 restent documentés séparément.
+
+## Procédure conservée pour les futures versions
+
+La procédure ci-dessous est un protocole de non-régression à réutiliser ; elle n’annule pas les résultats réussis ci-dessus.
+
+## Mise à jour à reproduire pour une future version
 
 1. Sur Bêta 3, utiliser uniquement la démonstration. Nommer la boutique « Validation mise à jour », créer un client reconnaissable et une vente. Noter total/stock, conserver un export JSON hors de l’application.
 2. Installer `BoutiquePilot-Android-1.0.0-beta.4.apk` par-dessus. Android doit proposer/accepter une mise à jour, sans désinstallation ni seconde icône. En cas de refus, arrêter ce scénario et signaler le message exact ; ne pas effacer les données.
@@ -30,4 +54,4 @@ Vérifier 14 modules, caisse, rapports, paramètres, portrait/paysage, clavier, 
 
 ## Retour attendu
 
-Renseigner pour chaque groupe : réussi/échec/non testé, version Android et problème observé. Les résultats réels de mise à jour, mode avion/redémarrage, JSON, impression et sortie conditionnent la validation finale. Ne transmettre aucune donnée personnelle.
+Renseigner pour chaque groupe : réussi/échec/non testé, version Android et problème observé. Pour une future version, consigner à nouveau les résultats de mise à jour, mode avion/redémarrage, JSON, impression et sortie. Ne transmettre aucune donnée personnelle.

@@ -2,7 +2,9 @@
 
 Date : 28 septembre 2026.
 
-**Statut : livraison technique Bêta 4 préparée ; validation finale propriétaire encore ouverte.** Aucun résultat de téléphone non communiqué n’est inventé. Aucune publication Google Play, aucun achat et aucune désinstallation du téléphone n’ont été effectués.
+**DÉVELOPPEMENT ANDROID : TERMINÉ. VALIDATION FONCTIONNELLE PROPRIÉTAIRE : RÉUSSIE. GOOGLE PLAY : PRÉPARÉ, NON PUBLIÉ.**
+
+La clôture des ressources marketing reste bloquée par l’absence des quatre captures Android dans le dossier prévu ; aucun visuel final contenant une fausse capture n’a été fabriqué. Aucun résultat de téléphone non communiqué n’est inventé. Aucune publication Google Play, aucun achat et aucune désinstallation du téléphone n’ont été effectués.
 
 ## Version livrée
 
@@ -17,7 +19,7 @@ Date : 28 septembre 2026.
 | APK SHA-256 | 6fffb31b80fab08fadf0247df86dc256c6283455f2df854ba65aa3bcb68dd502 |
 | AAB SHA-256 | 5031a5318692511ad9b7193b78fc7e642be115138d4a63ef99b40acc119b207a |
 
-Bêta 4 est la candidate finale, pas une version arbitrairement déclarée validée. Si les tests propriétaire réussissent sans modification, ces mêmes binaires peuvent être retenus. Toute nouvelle version binaire devra avoir un versionCode supérieur et la même clé durable.
+Bêta 4 est validée fonctionnellement par le propriétaire. Les mêmes APK/AAB sont retenus, sans reconstruction ni Bêta 5 documentaire. Toute nouvelle version binaire devra avoir un versionCode supérieur et la même clé durable.
 
 ## Architecture conservée
 
@@ -40,7 +42,7 @@ La clé privée PKCS12 est chiffrée dans un coffre local avec ACL limitées au 
 - 14 scénarios métier : conversions de conditionnements, ventes/stock, transferts, coûts historiques, poids, inventaire, promotions, Huri/Yas, sauvegardes, atomicité, données invalides et démonstration : réussis.
 - 9 scénarios d’intégrité : migrations, CMP, emplacements, conversions invalides, données incohérentes, quota, concurrence et compteurs : réussis.
 - Simulation navigateur avec pont Android : navigation des 14 modules, persistance navigateur, JSON bidirectionnel identique, import invalide, annulation de lecture, erreur de lecture, annulation/erreur d’écriture et adaptateur impression : réussis. Aucune erreur JavaScript ni requête externe. Ce ne sont pas des tests de sélecteur ou d’impression sur Android réel.
-- Animation mesurée en simulation : environ 3,06 s ; logo et icônes inchangés. Rendu natif initial déjà constaté sur Bêta 3 par le propriétaire ; fluidité détaillée à confirmer.
+- Animation mesurée en simulation : environ 3,06 s ; logo et icônes inchangés. Rendu natif initial déjà constaté sur Bêta 3 par le propriétaire ; écrans, animation et ergonomie confirmés réussis sur Bêta 4 par le propriétaire.
 - Compilation assembleRelease et bundleRelease : réussie. APK release non débogable, package/version et manifeste contrôlés ; minSdk 24, cible 36 ; pas de permission inutile ajoutée ni bibliothèque native lib/.
 - APK signé : signatures v2/v3 et certificat attendu vérifiés par apksigner pour API 24 à 36 ; CRC, alignement avant signature et contenu après signature contrôlés.
 - AAB signé localement par jarsigner : vérification stricte avec certificat de confiance attendu, métadonnées et bundletool validate réussis. Un APK universel a été généré depuis cet AAB avec le même certificat, vérifié par apksigner et comparé au contenu applicatif livré. Ceci ne constitue pas une installation sur appareil.
@@ -52,17 +54,17 @@ La clé privée PKCS12 est chiffrée dans un coffre local avec ACL limitées au 
 |---|---|
 | Installation et lancement Bêta 3 | Confirmés par le propriétaire |
 | Icône, logo blanc et écran bleu Bêta 3 | Confirmés par le propriétaire |
-| Bêta 3 → Bêta 4 sans désinstallation | Préparé techniquement ; validation propriétaire requise, bloquante |
-| Données conservées après mise à jour | Validation propriétaire requise |
-| Mode avion, arrêt forcé, relance et redémarrage | Absence de dépendance réseau vérifiée ; scénario réel à confirmer |
-| Android → fichier réel → navigateur | Compatibilité simulée réussie ; transfert réel à confirmer |
-| Navigateur → fichier réel → Android et reprise | Compatibilité simulée réussie ; scénario réel à confirmer |
-| Impression PDF et annulation | Intégration compilée/simulée ; service réel à confirmer |
-| Quitter / Annuler et Retour Android | Code conservé, liaison simulée ; comportement réel à confirmer |
+| Bêta 3 → Bêta 4 sans désinstallation | RÉUSSI — confirmé par le propriétaire |
+| Données conservées après mise à jour | RÉUSSI — confirmé par le propriétaire |
+| Mode avion, arrêt forcé, relance et redémarrage | RÉUSSI — mode avion, arrêt/reprise et redémarrage confirmés |
+| Android → fichier réel → navigateur | RÉUSSI — sauvegardes et compatibilité confirmées |
+| Navigateur → fichier réel → Android et reprise | RÉUSSI — import/restauration et persistance confirmés |
+| Impression PDF et annulation | RÉUSSI — impression/PDF confirmé |
+| Quitter / Annuler et Retour Android | RÉUSSI — Quitter/Annuler et navigation confirmés |
 | Quatre captures Android | Instructions prêtes ; captures propriétaire requises |
 | Quatre affiches | Exactement quatre structures SVG ; finalisation après captures |
 
-La procédure unique des essais est 08-validation-proprietaire.md. Ne pas désinstaller Bêta 3 avant l’essai de mise à jour.
+Les résultats réels sont enregistrés dans 08-validation-proprietaire.md, sur la base de la confirmation explicite du propriétaire. Ils sont distincts des tests automatisés et ne constituent pas une approbation Google Play.
 
 ## Livrables et archives
 
@@ -81,8 +83,12 @@ Les contrôles effectifs des archives, leur SHA-256 et le checkpoint exact sont 
 
 API cible 36 conforme à l’exigence mobile consultée au 28/09/2026. APK et AAB techniquement construits/signés, bundle validé. Aucune approbation Play n’est revendiquée.
 
-Restent avant soumission : validations réelles, quatre captures, politique Android approuvée/publiée et accessible dans l’application, déclarations Data Safety/public cible/contenu, coordonnées administratives si requises, choix Play App Signing préservant les mises à jour entre APK directs et Play, vérification du compte et de ses éventuelles obligations de test fermé. Voir 10-confidentialite-et-play.md et ses sources officielles. Aucun contenu légal non validé ni nouvelle URL n’a été publié.
+Restent avant soumission : quatre captures, politique Android approuvée/publiée et accessible dans l’application, déclarations Data Safety/public cible/contenu, coordonnées administratives si requises, choix Play App Signing préservant les mises à jour entre APK directs et Play, vérification du compte et de ses éventuelles obligations de test fermé. Voir 10-confidentialite-et-play.md et ses sources officielles. Aucun contenu légal non validé ni nouvelle URL n’a été publié.
 
 ## Conclusion de livraison
 
-Les travaux réalisables sans téléphone sont préparés et contrôlés ; la validation fonctionnelle finale et l’autorisation de publication restent ouvertes. Après réception des résultats et des quatre captures, compléter les preuves, finaliser les quatre affiches et mettre à jour le ZIP Play sans modifier arbitrairement l’identité Android.
+La validation fonctionnelle est clôturée avec succès. Les APK/AAB et le mécanisme de mise à jour sont validés par les contrôles techniques et les essais propriétaire. Les captures et quatre affiches finales restent bloquées par les fichiers manquants. Les décisions Play/juridiques et la publication appartiennent au chantier séparé Play Console. Aucun nouveau développement métier n’est ouvert.
+
+## Documents de clôture préparés
+
+13-checklist-play-console.md : étapes ordonnées et décisions propriétaire. 14-play-app-signing.md : continuité du certificat existant et distinction signature/importation. 15-politique-confidentialite-android.md : texte reflétant le fonctionnement réel. Page statique préparée dans mobile/store/privacy-page/, non publiée et non embarquée dans Bêta 4. Les modalités juridiques/support restent à approuver ; aucune URL publique n’est présentée comme active.

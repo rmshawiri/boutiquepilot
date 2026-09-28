@@ -33,4 +33,4 @@ BoutiquePilot — MORA Shawiri.
 
 Préparation des mises à jour avec une signature durable et une version Android incrémentée. Conservation de l’interface, des modules, des sauvegardes JSON et des adaptations Android : lancement, import/export, impression et commande Quitter.
 
-La validation réelle Bêta 3 → Bêta 4 reste requise avant de diffuser ces notes comme une validation publique. Aucun badge « disponible sur Google Play » ni promesse de gratuité permanente.
+La mise à jour réelle Bêta 3 → Bêta 4 et les tests fonctionnels ont été confirmés réussis par le propriétaire. Aucun badge « disponible sur Google Play » ni promesse de gratuité permanente.
