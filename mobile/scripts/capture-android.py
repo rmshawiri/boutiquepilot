@@ -25,4 +25,7 @@ adb('install','/tmp/beta4.apk')
 shell('am','start','-n','com.morashawiri.boutiquepilot/.MainActivity');time.sleep(12)
 capture('01-tableau-de-bord')
 (out/'provenance.json').write_text(json.dumps({'apkSHA256':hashlib.sha256(pathlib.Path('/tmp/beta4.apk').read_bytes()).hexdigest(),'android':shell('getprop','ro.build.version.release'),'api':shell('getprop','ro.build.version.sdk'),'fingerprint':shell('getprop','ro.build.fingerprint'),'capture':'adb exec-out screencap -p','data':'Fresh install with integrated demonstration data','display':shell('wm','size'),'density':shell('wm','density')},indent=2))
-tap_text('Modules');capture('modules')
+tap_text('Modules');tap_text('Caisse & ventes');capture('pos-initial')
+tap_text('Modules');tap_text('Articles & stock');capture('03-articles-stock')
+tap_text('Modules');tap_text('Tarifications & Promotions');capture('04-tarification-marges')
+
