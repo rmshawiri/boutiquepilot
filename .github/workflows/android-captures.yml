@@ -4,7 +4,7 @@ on:
     branches: [android/beta]
     paths: ['.github/workflows/android-captures.yml', 'mobile/scripts/capture-android.py']
 permissions:
-  contents: read
+  contents: write
 jobs:
   capture:
     runs-on: ubuntu-24.04
@@ -36,3 +36,4 @@ jobs:
           name: BoutiquePilot-real-Android-captures
           path: capture-output/
           retention-days: 7
+
