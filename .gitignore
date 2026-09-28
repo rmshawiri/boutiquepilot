@@ -12,3 +12,5 @@ Thumbs.db
 *.jks
 *.keystore
 **/signing-private.json
+
+/capture-output/

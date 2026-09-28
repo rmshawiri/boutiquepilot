@@ -1,0 +1,91 @@
+{
+  "apkSHA256": "6fffb31b80fab08fadf0247df86dc256c6283455f2df854ba65aa3bcb68dd502",
+  "android": "15",
+  "api": "35",
+  "fingerprint": "google/sdk_gphone64_x86_64/emu64xa:15/AE3A.240806.043/12960925:userdebug/dev-keys",
+  "capture": "adb exec-out screencap -p",
+  "data": "Fresh install with integrated demonstration data",
+  "display": "Physical size: 1080x1920",
+  "density": "Physical density: 420\nOverride density: 400",
+  "workflow": "https://github.com/rmshawiri/boutiquepilot/actions/runs/36392107514",
+  "commit": "eaabbb467f1fbd6324e4e99c30731b6495a81a96",
+  "method": "Unchanged signed release APK installed in Android 15 emulator; adb UI gestures and screencap. Only status/navigation system bands cropped. No browser, UI edits, compositing or generative imagery in screenshots.",
+  "cart": {
+    "products": [
+      "Sardines à l’huile",
+      "Biscuits ABC"
+    ],
+    "quantities": [
+      1,
+      1
+    ],
+    "totalKMF": 250,
+    "saleCompleted": false
+  },
+  "screenshots": {
+    "01-tableau-de-bord.png": {
+      "originalSize": [
+        1080,
+        1920
+      ],
+      "androidDensity": 400,
+      "crop": {
+        "left": 0,
+        "top": 60,
+        "width": 1080,
+        "height": 1800
+      },
+      "originalSha256": "6de113032e9d10ba2c7c5aba1862503c1a5ef94d4924ab1d66226ea41e8c93e7",
+      "sha256": "36cff3e9c0bb7e07d0df97fc9d22715e3f479eb1da652dd10f20e27c5f8eaa9c",
+      "applicationPixelsUnchanged": true
+    },
+    "02-caisse-panier.png": {
+      "originalSize": [
+        1080,
+        1920
+      ],
+      "androidDensity": 400,
+      "crop": {
+        "left": 0,
+        "top": 60,
+        "width": 1080,
+        "height": 1800
+      },
+      "originalSha256": "547f2cec88a3d7e8e10536aac95efe396b1f00276e5b21a31cc9e852f95c7dc8",
+      "sha256": "6edec9b23168da0c67f6f879f02e9c717aeacbb9318216e3c4a84a0b2f349298",
+      "applicationPixelsUnchanged": true
+    },
+    "03-articles-stock.png": {
+      "originalSize": [
+        1920,
+        1080
+      ],
+      "androidDensity": 240,
+      "crop": {
+        "left": 0,
+        "top": 36,
+        "width": 1920,
+        "height": 996
+      },
+      "originalSha256": "8fd8514018bb6fec3e817d889b386bab1712491e200d4f0903a811b2523a42e7",
+      "sha256": "f0e48d4bcc7b48ca556426258150404eb8c241770248eefd9b2d0fbeb07c8cda",
+      "applicationPixelsUnchanged": true
+    },
+    "04-tarification-marges.png": {
+      "originalSize": [
+        1920,
+        1080
+      ],
+      "androidDensity": 240,
+      "crop": {
+        "left": 0,
+        "top": 36,
+        "width": 1920,
+        "height": 996
+      },
+      "originalSha256": "b82240b6e05d50904cb8d98886ba3161e27e142ef6c5e6c6f6299449557eee0a",
+      "sha256": "7bd40e5d7a5a27df1b445fcc5bc3418012ae5b4a22db0d71f7afa57b59ab0c73",
+      "applicationPixelsUnchanged": true
+    }
+  }
+}

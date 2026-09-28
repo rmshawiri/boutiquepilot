@@ -4,13 +4,13 @@ on:
     branches: [android/beta]
     paths: ['.github/workflows/android-captures.yml', 'mobile/scripts/capture-android.py']
 permissions:
-  contents: write
+  contents: read
 jobs:
-  capture:
+  prepare:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    permissions:
+      contents: write # GitHub requires this to read an unpublished release asset.
     steps:
-      - uses: actions/checkout@v4
       - name: Retrieve unchanged final APK from unpublished draft
         env:
           GH_TOKEN: ${{ github.token }}
@@ -18,10 +18,27 @@ jobs:
           mkdir -p capture-output
           gh api repos/rmshawiri/boutiquepilot/releases/assets/594785224 -H 'Accept: application/octet-stream' > /tmp/beta4.apk
           echo '6fffb31b80fab08fadf0247df86dc256c6283455f2df854ba65aa3bcb68dd502  /tmp/beta4.apk' | sha256sum -c -
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-beta4-apk-input
+          path: /tmp/beta4.apk
+          retention-days: 1
+  capture:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: verified-beta4-apk-input
+          path: /tmp
+      - name: Recheck final APK
+        run: echo '6fffb31b80fab08fadf0247df86dc256c6283455f2df854ba65aa3bcb68dd502  /tmp/beta4.apk' | sha256sum -c -
       - name: Enable emulator acceleration
         run: |
           sudo chmod 666 /dev/kvm
-      - uses: reactivecircus/android-emulator-runner@v2
+      - uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2
         with:
           api-level: 35
           arch: x86_64

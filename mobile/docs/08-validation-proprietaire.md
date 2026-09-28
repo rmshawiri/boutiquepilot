@@ -52,6 +52,6 @@ Modules → Quitter l’application : Annuler laisse l’application ouverte ; Q
 
 Vérifier 14 modules, caisse, rapports, paramètres, portrait/paysage, clavier, barres système et transitions. L’animation normale dure environ 3 secondes ; le réglage de réduction des mouvements est respecté.
 
-## Retour attendu
+## Compte rendu à réutiliser pour une future version
 
-Renseigner pour chaque groupe : réussi/échec/non testé, version Android et problème observé. Pour une future version, consigner à nouveau les résultats de mise à jour, mode avion/redémarrage, JSON, impression et sortie. Ne transmettre aucune donnée personnelle.
+La validation Bêta 4 ci-dessus est acquise. Pour une future version, renseigner réussi/échec/non testé et la version Android, puis consigner à nouveau les résultats de mise à jour, mode avion/redémarrage, JSON, impression et sortie. Ne transmettre aucune donnée personnelle.

@@ -4,7 +4,7 @@ Date : 28 septembre 2026.
 
 **DÉVELOPPEMENT ANDROID : TERMINÉ. VALIDATION FONCTIONNELLE PROPRIÉTAIRE : RÉUSSIE. GOOGLE PLAY : PRÉPARÉ, NON PUBLIÉ.**
 
-La clôture des ressources marketing reste bloquée par l’absence des quatre captures Android dans le dossier prévu ; aucun visuel final contenant une fausse capture n’a été fabriqué. Aucun résultat de téléphone non communiqué n’est inventé. Aucune publication Google Play, aucun achat et aucune désinstallation du téléphone n’ont été effectués.
+Les ressources marketing sont finalisées : quatre captures réelles de Bêta 4 exécutée dans Android 15 et quatre affiches PNG 1080 × 1350, toutes ouvertes et contrôlées. Aucun résultat de téléphone non communiqué n’est inventé. Aucune publication Google Play, aucun achat et aucune désinstallation du téléphone n’ont été effectués.
 
 ## Version livrée
 
@@ -19,7 +19,7 @@ La clôture des ressources marketing reste bloquée par l’absence des quatre c
 | APK SHA-256 | 6fffb31b80fab08fadf0247df86dc256c6283455f2df854ba65aa3bcb68dd502 |
 | AAB SHA-256 | 5031a5318692511ad9b7193b78fc7e642be115138d4a63ef99b40acc119b207a |
 
-Bêta 4 est validée fonctionnellement par le propriétaire. Les mêmes APK/AAB sont retenus, sans reconstruction ni Bêta 5 documentaire. Toute nouvelle version binaire devra avoir un versionCode supérieur et la même clé durable.
+Bêta 4 est validée fonctionnellement par le propriétaire. Les APK/AAB livrés restent strictement identiques ; aucune nouvelle version Bêta 5 n’a été créée. Toute nouvelle version binaire devra avoir un versionCode supérieur et la même clé durable.
 
 ## Architecture conservée
 
@@ -61,8 +61,8 @@ La clé privée PKCS12 est chiffrée dans un coffre local avec ACL limitées au 
 | Navigateur → fichier réel → Android et reprise | RÉUSSI — import/restauration et persistance confirmés |
 | Impression PDF et annulation | RÉUSSI — impression/PDF confirmé |
 | Quitter / Annuler et Retour Android | RÉUSSI — Quitter/Annuler et navigation confirmés |
-| Quatre captures Android | Instructions prêtes ; captures propriétaire requises |
-| Quatre affiches | Exactement quatre structures SVG ; finalisation après captures |
+| Quatre captures Android | RÉUSSI — APK final exécuté dans un émulateur Android 15, pixels applicatifs préservés |
+| Quatre affiches | RÉUSSI — quatre PNG RGB 1080 × 1350 contrôlés, SVG sources conservés |
 
 Les résultats réels sont enregistrés dans 08-validation-proprietaire.md, sur la base de la confirmation explicite du propriétaire. Ils sont distincts des tests automatisés et ne constituent pas une approbation Google Play.
 
@@ -71,7 +71,7 @@ Les résultats réels sont enregistrés dans 08-validation-proprietaire.md, sur 
 Dans 04 Livrables :
 
 - BoutiquePilot-Android-1.0.0-beta.4.apk et .aab, avec empreintes et preuves de signature.
-- Google-Play-Package/ et BoutiquePilot-Google-Play-Package.zip : APK/AAB, icône 512 px, feature graphic 1024 × 500, textes store, déclarations à valider, manifeste/rapports/certificat public. Le dossier captures contient uniquement des consignes ; les quatre modèles d’affiches sont marqués non publiables. Ce package n’est pas prêt à soumettre tant que les points bloquants restent ouverts.
+- Google-Play-Package/ et BoutiquePilot-Google-Play-Package.zip : APK/AAB, icône 512 px, feature graphic 1024 × 500, textes store, déclarations à valider, manifeste/rapports/certificat public. Le dossier captures contient les quatre vrais PNG Android et leur provenance. Aucun modèle non publiable ni placeholder ne reste dans le ZIP Play. La soumission reste soumise aux décisions de publication ci-dessous.
 - Archives/ : anciens APK et preuves conservés sans modification.
 - LISEZ-MOI-LIVRABLES.md et SHA256SUMS-FINAL.txt : orientation et empreintes exactes de l’APK, du AAB et des deux ZIP.
 
@@ -83,12 +83,24 @@ Les contrôles effectifs des archives, leur SHA-256 et le checkpoint exact sont 
 
 API cible 36 conforme à l’exigence mobile consultée au 28/09/2026. APK et AAB techniquement construits/signés, bundle validé. Aucune approbation Play n’est revendiquée.
 
-Restent avant soumission : quatre captures, politique Android approuvée/publiée et accessible dans l’application, déclarations Data Safety/public cible/contenu, coordonnées administratives si requises, choix Play App Signing préservant les mises à jour entre APK directs et Play, vérification du compte et de ses éventuelles obligations de test fermé. Voir 10-confidentialite-et-play.md et ses sources officielles. Aucun contenu légal non validé ni nouvelle URL n’a été publié.
+Restent avant soumission : politique Android approuvée/publiée et accessible dans l’application, déclarations Data Safety/public cible/contenu, coordonnées administratives si requises, choix Play App Signing préservant les mises à jour entre APK directs et Play, vérification du compte et de ses éventuelles obligations de test fermé. Voir 10-confidentialite-et-play.md et ses sources officielles. Aucun contenu légal non validé ni nouvelle URL n’a été publié.
 
 ## Conclusion de livraison
 
-La validation fonctionnelle est clôturée avec succès. Les APK/AAB et le mécanisme de mise à jour sont validés par les contrôles techniques et les essais propriétaire. Les captures et quatre affiches finales restent bloquées par les fichiers manquants. Les décisions Play/juridiques et la publication appartiennent au chantier séparé Play Console. Aucun nouveau développement métier n’est ouvert.
+La validation fonctionnelle est clôturée avec succès. Les APK/AAB et le mécanisme de mise à jour sont validés par les contrôles techniques et les essais propriétaire. Les quatre captures et quatre affiches finales sont livrées ; leurs dimensions, provenance Android, lisibilité, absence de données personnelles et empreintes ont été contrôlées. Les décisions Play/juridiques et la publication appartiennent au chantier séparé Play Console. Aucun nouveau développement métier n’est ouvert.
 
 ## Documents de clôture préparés
 
 13-checklist-play-console.md : étapes ordonnées et décisions propriétaire. 14-play-app-signing.md : continuité du certificat existant et distinction signature/importation. 15-politique-confidentialite-android.md : texte reflétant le fonctionnement réel. Page statique préparée dans mobile/store/privacy-page/, non publiée et non embarquée dans Bêta 4. Les modalités juridiques/support restent à approuver ; aucune URL publique n’est présentée comme active.
+
+## Clôture des médias et des contrôles
+
+Acquisition Android réelle : https://github.com/rmshawiri/boutiquepilot/actions/runs/36392107514 . APK signé final installé sans modification, Android 15/API 35. Deux articles ajoutés au panier, total 250 KMF, aucune vente encaissée. Quatre captures directes ; seules les bandes système ont été retirées avec comparaison des pixels conservés. Deux portraits 1080 × 1800 et deux paysages 1920 × 996, adaptés à la largeur des tableaux. Voir 12-captures-et-campagne.md et mobile/resources/android-captures/provenance.json.
+
+Les quatre affiches RGB 1080 × 1350 ont été réellement ouvertes et contrôlées. Aucun placeholder, badge Google Play ou promesse trompeuse. Les vieux modèles restent seulement dans l’historique et les archives locales.
+
+Les empreintes immuables de l’APK/AAB et de BoutiquePilot.html sont revérifiées. Les ZIP finaux font l’objet d’un contrôle CRC, des empreintes internes et des valeurs sensibles connues (comptes, environnement, signature). La clé chiffrée de l’archive privée est relue en mémoire avec comparaison du certificat ; les sources archivées passent leur préparation. Le checkpoint exact, son égalité avec GitHub et les hashes des deux ZIP sont consignés après construction dans Controle-final-livraison.json et SHA256SUMS-FINAL.txt.
+
+Statuts de clôture : développement TERMINÉ ; validation propriétaire RÉUSSIE ; APK/AAB PRÊTS ; mises à jour, hors connexion et sauvegardes VALIDÉS par le propriétaire ; archive maintenance PRÊTE ; 4 captures et 4 affiches PRÊTES ; package Google Play PRÉPARÉ ; politique PRÉPARÉE mais non publiée ; publication Google Play NON EFFECTUÉE.
+
+La Bêta 4 reste inchangée. Aucun code métier, HTML de référence, site en production, WordPress ou FluentCRM n’a été modifié pour cette clôture. Le prochain chantier est la publication Google Play, avec validation de la politique et de son accès dans l’application avant soumission. La Bêta 4 ne comporte pas encore ce lien : ce prérequis est explicitement documenté, sans prétendre que le package est déjà approuvé ou soumis.

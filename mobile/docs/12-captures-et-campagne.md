@@ -1,26 +1,47 @@
-# Quatre captures Android et quatre affiches
+# Captures Android réelles et campagne finale
 
-Aucune capture navigateur ne remplace une capture Android. Aucun téléphone n’est connecté à cette tâche ; les captures officielles restent à fournir par le propriétaire.
+Statut : **4 captures Android et 4 affiches PNG PRÊTES**, ouvertes et contrôlées visuellement le 28 septembre 2026.
 
-## Captures à déposer
+## Provenance Android
 
-Dossier : Information clés/07 Application Mobile Bêta/03 Captures App/Captures App/
+APK final Bêta 4 inchangé : 1.0.0-beta.4 / versionCode 4 / com.morashawiri.boutiquepilot. SHA-256 : 6fffb31b80fab08fadf0247df86dc256c6283455f2df854ba65aa3bcb68dd502.
 
-Utiliser l’application Bêta 4 installée, données de démonstration seulement. Sauvegarder les données de test avant de réinitialiser éventuellement la démonstration ; ne jamais écraser une sauvegarde utile. Fermer clavier/menu/notifications et activer Ne pas déranger. Capturer en portrait au format PNG, résolution native (idéalement 1080 × 1920 ou plus), sans filtre, cadre promotionnel ni recomposition de chiffres. Garder le contenu lisible ; ne pas mélanger les captures avec celles du navigateur.
+Installation et exécution réelles dans un émulateur Android 15, API 35, x86_64. Acquisition via `adb exec-out screencap -p`, interactions Android avec UIAutomator et gestes ADB. Aucune capture navigateur, aucune modification de l’APK, aucune reconstruction d’interface et aucune image générée par IA.
 
-1. 01-tableau-de-bord.png : ouvrir Tableau de bord ; indicateurs et synthèse visibles.
-2. 02-caisse-panier.png : Caisse & ventes ; ajouter deux articles de démonstration au panier, afficher lignes et total, sans encaisser inutilement.
-3. 03-articles-stock.png : Articles & stock ; afficher plusieurs articles de démonstration et les stocks/conditionnements.
-4. 04-tarification-marges.png : Tarifications & Promotions ; afficher des articles avec coûts, marges/prix sans modifier arbitrairement les règles.
+Exécution : https://github.com/rmshawiri/boutiquepilot/actions/runs/36392107514 . Le transfert de l’APK a utilisé un brouillon GitHub non publié ; aucune clé privée n’a été transférée. Aucun achat, aucune publication Play.
 
-Confirmer qu’elles proviennent d’Android et ne contiennent pas de données personnelles. Il doit y avoir exactement ces quatre captures publiques après validation. Les captures doivent respecter les limites Play (320–3840 px, plus grande dimension au plus deux fois la plus petite) ; si le téléphone produit un ratio plus long que 2:1, préparer des captures dans une orientation/dimension compatible ou recadrer uniquement des zones système non utiles après revue, sans falsifier l’interface.
+Installation neuve avec la démonstration intégrée uniquement. Aucun compte, contact ou donnée personnelle ajouté. Les noms d’articles et fournisseurs affichés proviennent de la démonstration. Aucun clavier, menu parasite ou indicateur de développement conservé.
 
-## Affiches préparées
+Seules les bandes système Android ont été retirées : haut 60 px/bas 60 px en portrait ; haut 36 px/bas 48 px en paysage. Les pixels de l’application dans la zone conservée ont été comparés et sont strictement identiques. PNG RGB 24 bits, sans transparence, sans déformation. Les empreintes des originaux et des résultats figurent dans provenance.json.
 
-Dossier : Information clés/07 Application Mobile Bêta/03 Captures App/Campagne App/
+## Quatre captures officielles
 
-Quatre modèles SVG 1080 × 1350, un par capture, reprennent la palette bleu marine/cyan et le logo officiel. Chaque modèle comporte un emplacement explicitement vide « Capture Android validée à insérer ». Ce sont des structures de travail non publiables, pas des affiches finalisées. Titres : Vue d’ensemble ; Encaissez et suivez vos ventes ; Gardez le contrôle du stock ; Consultez vos prix et vos marges.
+Dossier : Information clés/07 Application Mobile Bêta/03 Captures App/Captures App/.
 
-Après validation des quatre captures : insérer chaque capture réelle sans déformation, rendre quatre PNG finaux, contrôler lisibilité et données, retirer les mentions de travail et conserver exactement quatre affiches finales. Ne pas ajouter de faux avis, chiffres de performance ou badge Play avant publication.
+| Fichier | Dimensions | Contenu vérifié |
+|---|---|---|
+| 01-tableau-de-bord.png | 1080 × 1800 | Indicateurs, synthèse et alerte de stock |
+| 02-caisse-panier.png | 1080 × 1800 | Sardines à l’huile + Biscuits ABC, quantité 1 chacun, total 250 KMF ; aucune vente encaissée |
+| 03-articles-stock.png | 1920 × 996 | Plusieurs articles, stocks, unités de référence, répartition Réserve/Rayon, coûts et statuts |
+| 04-tarification-marges.png | 1920 × 996 | Articles/formats, coûts, prix, marges souhaitées et actuelles |
 
-L’icône Play 512 × 512 et le feature graphic 1024 × 500 sont préparés séparément ; ce ne sont pas des captures de l’application.
+Les tableaux utilisent le rendu paysage réel de l’application pour montrer leurs colonnes. La liste Articles montre les unités de stock ; les formats carton/paquet/détail sont notamment visibles dans Tarification. Aucun montage ne combine artificiellement des vues. Ratios 1,667 et 1,928, dimensions comprises entre 320 et 3840 px et ratio maximal inférieur à 2.
+
+## Quatre affiches finales
+
+Dossier : Information clés/07 Application Mobile Bêta/03 Captures App/Campagne App/.
+
+- 01-tableau-de-bord.png
+- 02-caisse-ventes.png
+- 03-articles-stock.png
+- 04-tarification-marges.png
+
+Chaque PNG est RGB 1080 × 1350. Logo officiel, palette bleu marine/cyan, titre, bénéfice, CTA « Découvrez BoutiquePilot » et vraie capture correspondante. Aucun placeholder, faux avis, statistique promotionnelle inventée, badge Play ou promesse de gratuité permanente. Les montants visibles sont ceux de la démonstration, explicitement identifiée.
+
+SVG éditables dans Campagne App/Sources/ et mobile/resources/campaign-final/. Les anciens modèles ont été retirés des livrables publics et restent dans l’historique Git/les archives locales.
+
+## Reproduction et contrôles
+
+Depuis la racine Git : `node mobile/scripts/finalize-android-captures.mjs DOSSIER_CAPTURES_BRUTES`, puis `node mobile/scripts/campaign-final.mjs`. Les captures brutes proviennent du workflow Android ; la préparation ne touche pas aux pixels métier. La provenance versionnée décrit cette acquisition Bêta 4 précise. Pour une autre acquisition, actualiser ses références et réexaminer les zones système, sans réutiliser aveuglément les valeurs de recadrage.
+
+Les quatre captures et les quatre affiches ont été ouvertes, relues et contrôlées. Journal AndroidRuntime/Capacitor Console sans erreur pendant l’acquisition. Les tests métier lourds acquis n’ont pas été relancés pour les visuels ; les résultats téléphone restent ceux confirmés par le propriétaire.

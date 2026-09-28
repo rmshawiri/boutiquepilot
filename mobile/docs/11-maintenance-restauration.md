@@ -35,6 +35,6 @@ Une correction du métier ou des adaptateurs exige une revue et les tests adapt�
 
 MAINTENANCE MASTER PRIVE : sources, documentation, outils de signature portables, référence Git, certificat public, keystore chiffré, reçu de dernière livraison. Pas de mot de passe, token, SMTP ni secret tiers. Jamais Git/Play/public.
 
-Google Play Package : AAB/APK publics signés, identité graphique, textes/checklists, rapports techniques et certificat public. Aucun keystore ni secret. Les captures et affiches finales manquantes sont signalées explicitement.
+Google Play Package : AAB/APK publics signés, identité graphique, textes/checklists, rapports techniques et certificat public. Aucun keystore ni secret. Les quatre captures Android réelles et les quatre affiches finales sont livrées ; la politique et les décisions Play restent à approuver avant publication.
 
 Avant diffusion, vérifier le certificat Play App Signing : l’AAB signé constitue une soumission authentifiée, mais Google signe les APK distribués avec la clé configurée dans Play. Préserver la continuité avec les installations directes demande de configurer la même identité de signature appropriée, pas simplement d’utiliser la même clé d’upload.

@@ -30,7 +30,7 @@ def write_zip(path,items):
   z.writestr('CONTENTS-SHA256.txt',hashes)
  with zipfile.ZipFile(path) as z:assert z.testzip() is None
 write_zip(public_zip,public_items)
-source=subprocess.check_output(['git','archive','--format=zip',head,'mobile','public/beta/BoutiquePilot.html','package.json','package-lock.json','.github/workflows/android-apk.yml','.gitignore'],cwd=root)
+source=subprocess.check_output(['git','archive','--format=zip',head,'mobile','public/beta/BoutiquePilot.html','package.json','package-lock.json','.github/workflows/android-apk.yml','.github/workflows/android-captures.yml','.gitignore'],cwd=root)
 items={'GIT-REFERENCE.txt':reference.encode(),'A-LIRE-AVANT-TOUTE-FUTURE-MISE-A-JOUR.md':(root/'mobile/docs/11-maintenance-restauration.md').read_bytes()}
 with zipfile.ZipFile(io.BytesIO(source)) as z:
  for n in z.namelist():
