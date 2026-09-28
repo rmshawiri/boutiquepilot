@@ -1,0 +1,38 @@
+name: Android real screenshots
+on:
+  push:
+    branches: [android/beta]
+    paths: ['.github/workflows/android-captures.yml', 'mobile/scripts/capture-android.py']
+permissions:
+  contents: read
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve unchanged final APK from unpublished draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p capture-output
+          gh api repos/rmshawiri/boutiquepilot/releases/assets/594785224 -H 'Accept: application/octet-stream' > /tmp/beta4.apk
+          echo '6fffb31b80fab08fadf0247df86dc256c6283455f2df854ba65aa3bcb68dd502  /tmp/beta4.apk' | sha256sum -c -
+      - name: Enable emulator acceleration
+        run: |
+          sudo chmod 666 /dev/kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          target: google_apis
+          profile: pixel_2
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
+          disable-animations: true
+          script: python3 mobile/scripts/capture-android.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: BoutiquePilot-real-Android-captures
+          path: capture-output/
+          retention-days: 7
