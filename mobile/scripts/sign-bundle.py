@@ -32,6 +32,6 @@ with tempfile.TemporaryDirectory(prefix='boutiquepilot-bundle-') as tmp:
   for n in original.namelist():assert original.read(n)==z.read(n),n
  a.output.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(signed,a.output)
  digest=hashlib.sha256(a.output.read_bytes()).hexdigest()
- a.output.with_suffix('.sha256').write_text(digest+'  '+a.output.name+'\n')
- a.output.with_suffix('.verification.txt').write_text(proof+'\n'+cert+'\n'+validation)
+ a.output.with_name(a.output.name+'.sha256').write_text(digest+'  '+a.output.name+'\n')
+ a.output.with_name(a.output.name+'.verification.txt').write_text(proof+'\n'+cert+'\n'+validation)
  print(json.dumps({'aab':a.output.name,'sha256':digest,'certificateSha256':fingerprint,'versionCode':receipt['versionCode']},indent=2))

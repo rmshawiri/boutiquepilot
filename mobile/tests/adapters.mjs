@@ -18,7 +18,7 @@ try{
   window.io={mode:'ok',saved:null,selected:null,printed:0,exitRequests:0};
   window.Capacitor={isNativePlatform:()=>true,Plugins:{BoutiqueFiles:{
    saveJSON:async value=>{if(io.mode==='error')throw Error('I/O');if(io.mode==='cancel')return {cancelled:true};io.saved=value;return {cancelled:false};},
-   openJSON:async()=>io.selected||{cancelled:true},
+   openJSON:async()=>{if(io.readError)throw Error('Read failed');return io.selected||{cancelled:true};},
    printTicket:async()=>{io.printed++;},
    launchReady:async()=>{setTimeout(()=>window.dispatchEvent(new Event("boutiquepilot-launch")),300);},
    requestExit:async()=>{io.exitRequests++;}
@@ -58,10 +58,15 @@ try{
  const before=await app.evaluate(()=>localStorage.getItem(KEY));
  await app.evaluate(()=>{io.selected={cancelled:false,name:'corrompu.json',text:'{broken'};});
  await app.locator('label').filter({hasText:'Importer une sauvegarde'}).tap();await app.waitForTimeout(100);assert.equal(await app.evaluate(()=>localStorage.getItem(KEY)),before);
+ await app.evaluate(()=>{io.selected={cancelled:true};});
+ await app.locator('label').filter({hasText:'Importer une sauvegarde'}).tap();await app.waitForTimeout(100);assert.equal(await app.evaluate(()=>localStorage.getItem(KEY)),before);
+ await app.evaluate(()=>{io.readError=true;});
+ await app.locator('label').filter({hasText:'Importer une sauvegarde'}).tap();await app.waitForTimeout(100);assert.equal(await app.evaluate(()=>localStorage.getItem(KEY)),before);assert.ok((await app.locator('#toast').innerText()).includes('Lecture impossible'));
+ await app.evaluate(()=>{io.readError=false;});
  await app.evaluate(()=>{io.mode='cancel';});await app.getByRole('button',{name:'Télécharger la sauvegarde',exact:true}).tap();await app.waitForTimeout(100);assert.equal(await app.locator('#toast').innerText(),'Enregistrement annulé.');
  await app.evaluate(()=>{io.mode='error';});await app.getByRole('button',{name:'Télécharger la sauvegarde',exact:true}).tap();await app.waitForTimeout(100);assert.ok((await app.locator('#toast').innerText()).includes('impossible'));
  await app.evaluate(()=>{document.body.classList.add('printing');window.print();});await app.waitForTimeout(100);assert.equal(await app.evaluate(()=>io.printed),1);assert.equal(await app.locator('body').evaluate(e=>e.classList.contains('printing')),false);
  assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
- const result={scope:'Browser with mocked native I/O — NOT an Android device test',launchMs,exitBinding:true,modules:modules.length,roundTripJSON:true,persistenceBrowser:true,invalidImportPreserved:true,cancelAndError:true,printAdapter:true,externalRequests:external,errors};
+ const result={scope:'Browser with mocked native I/O — NOT an Android device test',launchMs,exitBinding:true,readCancelAndError:true,modules:modules.length,roundTripJSON:true,persistenceBrowser:true,invalidImportPreserved:true,cancelAndError:true,printAdapter:true,externalRequests:external,errors};
  await writeFile('artifacts/adapters.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result));
 }finally{await b.close();server.close();}

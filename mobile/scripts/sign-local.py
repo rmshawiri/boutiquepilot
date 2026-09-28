@@ -47,8 +47,8 @@ with tempfile.TemporaryDirectory(prefix='boutiquepilot-sign-') as tmp:
  a.output.parent.mkdir(parents=True,exist_ok=True)
  shutil.copyfile(signed,a.output)
  digest=hashlib.sha256(a.output.read_bytes()).hexdigest()
- a.output.with_suffix('.signature.txt').write_text(proof)
- a.output.with_suffix('.sha256').write_text(digest+'  '+a.output.name+'\n')
+ a.output.with_name(a.output.name+'.signature.txt').write_text(proof)
+ a.output.with_name(a.output.name+'.sha256').write_text(digest+'  '+a.output.name+'\n')
  receipt={'applicationId':identity['applicationId'],'versionCode':version,'versionName':version_name,'certificateSha256':fingerprint,'apkSha256':digest}
  state.write_text(json.dumps(receipt,indent=2)+'\n')
  print(json.dumps(receipt,indent=2))
