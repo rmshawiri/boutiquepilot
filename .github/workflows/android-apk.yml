@@ -2,7 +2,7 @@ name: Android unsigned release for local durable signing
 on:
   push:
     branches: [android/beta]
-    paths: ['mobile/**', '.github/workflows/android-apk.yml']
+    paths: ['mobile/**', '!mobile/scripts/capture-android.py', '!mobile/scripts/campaign-final.mjs', '!mobile/resources/campaign-final/**', '.github/workflows/android-apk.yml']
   workflow_dispatch:
 permissions:
   contents: read
