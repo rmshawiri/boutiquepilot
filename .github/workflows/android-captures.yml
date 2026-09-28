@@ -1,4 +1,4 @@
-name: Android real screenshots # screen preparation
+name: Android real screenshots # final screen selection
 on:
   push:
     branches: [android/beta]
