@@ -6,3 +6,9 @@ artifacts/
 *.log
 .DS_Store
 Thumbs.db
+
+*MAINTENANCE*PRIVE*.zip
+*.p12
+*.jks
+*.keystore
+**/signing-private.json

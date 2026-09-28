@@ -16,3 +16,6 @@ artifacts/
 
 __pycache__/
 *.pyc
+
+*MAINTENANCE*PRIVE*.zip
+*signing-private*

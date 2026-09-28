@@ -31,7 +31,7 @@ jobs:
         run: |
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-36' 'build-tools;36.0.0'
           cd android
-          bash gradlew assembleRelease --no-daemon --max-workers=2 --console=plain
+          bash gradlew assembleRelease bundleRelease --no-daemon --max-workers=2 --console=plain
       - name: Verify unsigned APK and prepare local signing tools
         run: |
           mkdir -p artifacts
@@ -41,7 +41,11 @@ jobs:
           "$ANDROID_HOME/build-tools/36.0.0/aapt" dump xmltree artifacts/BoutiquePilot-Android-unsigned.apk AndroidManifest.xml > artifacts/manifest.txt
           python3 scripts/verify-apk.py artifacts/BoutiquePilot-Android-unsigned.apk
           cp "$ANDROID_HOME/build-tools/36.0.0/lib/apksigner.jar" artifacts/apksigner.jar
-          sha256sum artifacts/BoutiquePilot-Android-unsigned.apk artifacts/apksigner.jar > artifacts/SHA256SUMS.txt
+          cp android/app/build/outputs/bundle/release/app-release.aab artifacts/BoutiquePilot-Android-unsigned.aab
+          curl --fail --location --retry 3 https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar --output artifacts/bundletool.jar
+          java -jar artifacts/bundletool.jar validate --bundle=artifacts/BoutiquePilot-Android-unsigned.aab > artifacts/bundle-validation.txt
+          java -jar artifacts/bundletool.jar dump manifest --bundle=artifacts/BoutiquePilot-Android-unsigned.aab > artifacts/bundle-manifest.xml
+          sha256sum artifacts/BoutiquePilot-Android-unsigned.apk artifacts/BoutiquePilot-Android-unsigned.aab artifacts/apksigner.jar artifacts/bundletool.jar > artifacts/SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
         with:
           name: BoutiquePilot-Android-unsigned
