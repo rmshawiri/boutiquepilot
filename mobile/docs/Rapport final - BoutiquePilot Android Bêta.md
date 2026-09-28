@@ -71,7 +71,7 @@ Les résultats réels sont enregistrés dans 08-validation-proprietaire.md, sur 
 Dans 04 Livrables :
 
 - BoutiquePilot-Android-1.0.0-beta.4.apk et .aab, avec empreintes et preuves de signature.
-- Google-Play-Package/ et BoutiquePilot-Google-Play-Package.zip : APK/AAB, icône 512 px, feature graphic 1024 × 500, textes store, déclarations à valider, manifeste/rapports/certificat public. Le dossier captures contient les quatre vrais PNG Android et leur provenance. Aucun modèle non publiable ni placeholder ne reste dans le ZIP Play. La soumission reste soumise aux décisions de publication ci-dessous.
+- Google-Play-Package/ et BoutiquePilot-Google-Play-Package.zip : APK/AAB, icône 512 px, feature graphic 1024 × 500, textes store, déclarations à valider, manifeste/rapports/certificat public. Le dossier captures contient les quatre vrais PNG Android et leur provenance. Le dossier 09_CAMPAGNE contient les quatre affiches finales PNG 1080 × 1350, comme ressources marketing séparées des captures à importer dans la fiche Store. Aucun modèle non publiable ni placeholder ne reste dans le ZIP Play. La soumission reste soumise aux décisions de publication ci-dessous.
 - Archives/ : anciens APK et preuves conservés sans modification.
 - LISEZ-MOI-LIVRABLES.md et SHA256SUMS-FINAL.txt : orientation et empreintes exactes de l’APK, du AAB et des deux ZIP.
 
@@ -104,3 +104,9 @@ Les empreintes immuables de l’APK/AAB et de BoutiquePilot.html sont revérifi�
 Statuts de clôture : développement TERMINÉ ; validation propriétaire RÉUSSIE ; APK/AAB PRÊTS ; mises à jour, hors connexion et sauvegardes VALIDÉS par le propriétaire ; archive maintenance PRÊTE ; 4 captures et 4 affiches PRÊTES ; package Google Play PRÉPARÉ ; politique PRÉPARÉE mais non publiée ; publication Google Play NON EFFECTUÉE.
 
 La Bêta 4 reste inchangée. Aucun code métier, HTML de référence, site en production, WordPress ou FluentCRM n’a été modifié pour cette clôture. Le prochain chantier est la publication Google Play, avec validation de la politique et de son accès dans l’application avant soumission. La Bêta 4 ne comporte pas encore ce lien : ce prérequis est explicitement documenté, sans prétendre que le package est déjà approuvé ou soumis.
+
+## Complément propriétaire et dossier Organisation
+
+Le propriétaire confirme également : aucune seconde application/icône, les échanges JSON dans les deux sens, annulation/import invalide, Retour Android, les 14 modules, splash blanc/logo complet et écran bleu animé environ 3 secondes : tous RÉUSSIS. Le rapport 08 les enregistre explicitement.
+
+Le compte Google Play Developer Organisation MORA Shawiri est en cours de création. Selon le propriétaire, la question D-U-N-S aux Comores a été envoyée au support Google Play ; réponse attendue. Aucune hypothèse administrative n’a été prise et ce point ne bloque pas la clôture technique. Les quatre affiches existantes ont été ajoutées au ZIP Play, sans les régénérer.

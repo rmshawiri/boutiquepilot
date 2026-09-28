@@ -6,17 +6,19 @@ Source : confirmation explicite du propriétaire reçue dans cette conversation 
 
 | Test réel | Résultat |
 |---|---|
+| Installation Bêta 3, absence de deuxième icône/application après mise à jour | RÉUSSI |
 | Mise à jour Bêta 3 → Bêta 4 par-dessus, sans désinstallation | RÉUSSI |
 | Conservation des données après mise à jour | RÉUSSI |
 | Fonctionnement hors connexion / mode avion | RÉUSSI |
 | Fermeture, arrêt forcé/reprise, relance | RÉUSSI |
 | Persistance des données et redémarrage du téléphone | RÉUSSI |
-| Sauvegarde JSON Android | RÉUSSI |
-| Import/restauration JSON et compatibilité des sauvegardes | RÉUSSI |
+| Sauvegarde Android → JSON → navigateur | RÉUSSI |
+| Sauvegarde navigateur → JSON → Android, import/restauration et compatibilité | RÉUSSI |
+| Annulation et import invalide | RÉUSSI |
 | Impression / PDF | RÉUSSI |
-| Quitter l’application / Annuler | RÉUSSI |
-| Navigation, ergonomie et fonctionnement général | RÉUSSI |
-| Écrans et animation de lancement | RÉUSSI |
+| Quitter l’application / Annuler / Retour Android | RÉUSSI |
+| Navigation des 14 modules métier, ergonomie et fonctionnement général | RÉUSSI |
+| Splash blanc avec logo complet, écran bleu animé et animation environ 3 secondes | RÉUSSI |
 
 Application validée : com.morashawiri.boutiquepilot, version 1.0.0-beta.4, versionCode 4. Aucun nouveau binaire n’est nécessaire pour enregistrer ces résultats. La signature durable et la continuité des mises à jour ont été confirmées par le scénario réel Bêta 3 → Bêta 4.
 

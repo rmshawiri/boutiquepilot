@@ -43,7 +43,10 @@ for name,data in items.items():assert not any(s in data for s in secrets),'Passw
 write_zip(private_zip,items)
 manifest=[]
 for path in [a.delivery/'BoutiquePilot-Android-1.0.0-beta.4.apk',a.delivery/'BoutiquePilot-Android-1.0.0-beta.4.aab',public_zip,private_zip]:manifest.append(hashlib.sha256(path.read_bytes()).hexdigest()+'  '+path.name)
+for folder in ['Captures App','Campagne App']:
+ for media in sorted((a.delivery.parent/'03 Captures App'/folder).glob('*.png')):
+  manifest.append(hashlib.sha256(media.read_bytes()).hexdigest()+'  ../'+media.relative_to(a.delivery.parent).as_posix())
 (a.delivery/'SHA256SUMS-FINAL.txt').write_text('\n'.join(manifest)+'\n')
-private_zip.with_suffix('.zip.sha256').write_text(manifest[-1]+'\n')
+private_zip.with_suffix('.zip.sha256').write_text(next(line for line in manifest if line.endswith('  '+private_zip.name))+'\n')
 print('Both archives created and CRC-checked; passwords excluded; public archive excludes private material.')
 print('\n'.join(manifest))

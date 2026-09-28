@@ -19,3 +19,7 @@ Application Android Bêta 4 validée fonctionnellement par le propriétaire. Auc
 15. Vérifier la politique publique, l’installation et les mises à jour depuis le canal Play retenu, puis obtenir l’autorisation explicite avant publication.
 
 Sources officielles : https://support.google.com/googleplay/android-developer/answer/9859455 ; https://support.google.com/googleplay/android-developer/answer/10144311 ; https://support.google.com/googleplay/android-developer/answer/14151465 . Recontrôler au jour de la soumission.
+
+## État administratif déclaré par le propriétaire
+
+Compte Google Play Developer Organisation MORA Shawiri en cours de création. La question du D-U-N-S pour les Comores a été transmise à Google Play Developer Support ; réponse attendue. Ce suivi administratif ne bloque pas la clôture technique Android. Ne pas inventer de numéro ni présumer une dérogation accordée.
