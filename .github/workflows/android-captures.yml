@@ -1,4 +1,4 @@
-name: Android real screenshots
+name: Android real screenshots # screen preparation
 on:
   push:
     branches: [android/beta]
@@ -36,4 +36,5 @@ jobs:
           name: BoutiquePilot-real-Android-captures
           path: capture-output/
           retention-days: 7
+
 
